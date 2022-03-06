@@ -98,6 +98,21 @@
                                     <span data-key="t-calendar">Riwayat Pemeriksaan</span>
                                 </a>
                             </li>
+
+                            <li class="menu-title" data-key="t-apps">Konfigurasi Klinik</li>
+                            <li>
+                                <a href="{{ route('menu.poli.index') }}">
+                                    <i data-feather="calendar"></i>
+                                    <span data-key="t-calendar">Master Poli</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('menu.antrian.index') }}">
+                                    <i data-feather="calendar"></i>
+                                    <span data-key="t-calendar">Konfigurasi Antrian</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <!-- Sidebar -->
