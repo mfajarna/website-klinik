@@ -21,9 +21,9 @@
                             <li class="menu-title" data-key="t-apps">Admin Menu</li>
 
                             <li>
-                                <a href="javascript: void(0);">
+                                <a href="{{ route('menu.dokter.index') }}">
                                     <i data-feather="shopping-cart"></i>
-                                    <span data-key="t-ecommerce">Data Dokter dan Bidan</span>
+                                    <span data-key="t-ecommerce">Data Dokter</span>
                                 </a>
                             </li>
 

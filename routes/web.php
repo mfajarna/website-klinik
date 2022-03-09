@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DokterController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PoliController;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +19,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/', LandingController::class);
+Route::resource('auth-login', LandingController::class);
+
+Route::resource('/', IndexController::class);
+
 Route::get('auth-register', [LandingController::class, 'register']);
 
 
@@ -38,6 +43,11 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         Route::get('/edit-status', [AntrianController::class, 'editStatus'])->name('antrian.editstatus');
         Route::get('/reset-antrian', [AntrianController::class, 'resetAntrian'])->name('antrian.reset');
         Route::get('/next-antrian', [AntrianController::class, 'nextAntrian'])->name('antrian.next');
+
+
+        // Route Dokter
+        Route::resource('dokter', DokterController::class);
+        Route::get('view-jadwal', [DokterController::class, 'lihatJadwalKerja'])->name('dokter.view-jadwal');
     }
 
 );

@@ -10,7 +10,7 @@
         <div class="w-100">
             <div class="d-flex flex-column h-100">
                 <div class="mb-4 mb-md-5 text-center">
-                    <a href="#" class="d-block auth-logo">
+                    <a href="{{ url('/') }}" class="d-block auth-logo">
                         <img src="{{ asset('/assets/images/LogoKlinikCS.jpg')}}" alt="" height="28"> <span class="logo-txt">Klinik Citra Sehat</span>
                     </a>
                 </div>
@@ -92,7 +92,7 @@
 
 
                     <div class="mt-5 text-center">
-                        <p class="text-muted mb-0">Sudah punya akun ? <a href="{{ route('index')}}"
+                        <p class="text-muted mb-0">Sudah punya akun ? <a href="{{ route('auth-login.index')}}"
                                 class="text-primary fw-semibold"> Login sekarang </a> </p>
                     </div>
                 </div>
