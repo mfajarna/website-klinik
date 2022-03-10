@@ -6,7 +6,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-                <form method="POST" action="#">
+                <form method="POST" action="{{ route('menu.poli.store') }}">
                     @csrf
 
                     <label for="nama_poli" class="col-form-label">Nama Poli:</label>

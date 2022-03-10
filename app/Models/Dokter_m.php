@@ -7,13 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 
-class Dokter_m extends Model
+class Dokter_m extends Authenticatable
 {
     use HasFactory;
 
     use HasApiTokens;
     use HasProfilePhoto;
+    use TwoFactorAuthenticatable;
     use Notifiable;
 
     
@@ -72,6 +75,13 @@ class Dokter_m extends Model
     {
         return $this->hasOne(Jadwalkerjadokter_m::class, 'id');
     }
+
+
+    public function dokter_poli()
+    {
+        return $this->hasMany(Dokterpoli_m::class, 'id');
+    }
+
 
 
 

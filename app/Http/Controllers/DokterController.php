@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dokter_m;
 use App\Models\Jadwalkerjadokter_m;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -89,6 +90,15 @@ class DokterController extends Controller
 
         $dataDokter->save();
 
+        $user = new User();
+
+        $user->name = $validation['nama_dokter'];
+        $user->email = $validation['email'];
+        $user->password = Hash::make('Dokter123');
+        $user->role = 'dokter';
+
+        $user->save();
+
 
         $data = $request->all();
 
@@ -118,7 +128,7 @@ class DokterController extends Controller
 
        
 
-        if($dataDokter && $dataJamKerja)
+        if($dataDokter && $dataJamKerja && $user)
         {
             toast()->success('Berhasil membuat data dokter');
 

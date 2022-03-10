@@ -28,9 +28,9 @@
                             </li>
 
                             <li>
-                                <a href="apps-chat.html">
+                                <a href="{{ route('menu.dokter-poli.index') }}">
                                     <i data-feather="message-square"></i>
-                                    <span data-key="t-chat">Rekam Kerja Dokter dan Bidan</span>
+                                    <span data-key="t-chat">Konfigurasi Dokter Poli</span>
                                 </a>
                             </li>
 

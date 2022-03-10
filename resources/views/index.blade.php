@@ -5,44 +5,7 @@
 
 @section('content')
 
-<div class="col-xxl-3 col-lg-4 col-md-5">
-    <div class="auth-full-page-content d-flex p-sm-5 p-4">
-        <div class="w-100">
-            <div class="d-flex flex-column h-100">
-                <div class="mb-4 mb-md-5 text-center">
-                    <a href="index.html" class="d-block auth-logo">
-                        <img src="{{ asset('/assets/images/LogoKlinikCS.jpg')}}" alt="" height="28"> <span class="logo-txt">Website Klinik</span>
-                    </a>
-                </div>
-                <div class="auth-content my-auto">
-                    <div class="text-center">
-                        <div class="avatar-xl mx-auto">
-                            <div class="avatar-title bg-light text-primary h1 rounded-circle">
-                                <i class="bx bxs-user"></i>
-                            </div>
-                        </div>
 
-                        <div class="mt-4 pt-2">
-                            <h5>Login untuk menggunakan website klinik</h5>
-                            
-                            <div class="mt-4">
-                                <a href="{{ route('auth-login.index') }}" class="btn btn-primary w-100 waves-effect waves-light">Login</a>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="mt-5 text-center">
-                        <p class="text-muted mb-0">Belum punya akun? <a href="{{ url('/auth-register')}}"
-                                class="text-primary fw-semibold">Register</a> </p>
-                    </div>
-                </div>
-                <div class="mt-4 mt-md-5 text-center">
-                    <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Website Klinik   . Crafted with <i class="mdi mdi-heart text-danger"></i></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="col-xxl-9 col-lg-8 col-md-7">
 

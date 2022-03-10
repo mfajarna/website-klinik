@@ -22,4 +22,9 @@ class Poli_m extends Model
     {
         return $this->hasOne(Antrian_m::class);
     }
+
+    public function dokter_poli()
+    {
+        return $this->hasMany(Dokterpoli_m::class, 'id');
+    }
 }

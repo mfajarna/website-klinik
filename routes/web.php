@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AntrianController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DokterController;
+use App\Http\Controllers\DokterPoliController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PoliController;
@@ -48,6 +50,9 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         // Route Dokter
         Route::resource('dokter', DokterController::class);
         Route::get('view-jadwal', [DokterController::class, 'lihatJadwalKerja'])->name('dokter.view-jadwal');
+
+        // Route Dokter Poli
+        Route::resource('dokter-poli', DokterPoliController::class);
     }
 
 );
