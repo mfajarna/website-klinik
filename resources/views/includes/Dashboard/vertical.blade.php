@@ -34,70 +34,11 @@
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="javascript: void(0);">
-                                    <i data-feather="mail"></i>
-                                    <span data-key="t-email">Data Pasien</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="apps-calendar.html">
-                                    <i data-feather="calendar"></i>
-                                    <span data-key="t-calendar">Upload Kegiatan</span>
-                                </a>
-                            </li>
-                
-                            <li>
-                                <a href="javascript: void(0);">
-                                    <i data-feather="users"></i>
-                                    <span data-key="t-contacts">History Pengguna</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript: void(0);">
-                                    <i data-feather="trello"></i>
-                                    <span data-key="t-tasks">Daftar Akun</span>
-                                </a>
-                            </li>
+                        
 
                             <li class="menu-title" data-key="t-menu">Dokter Menu</li>
 
-                            <li>
-                                <a href="apps-calendar.html">
-                                    <i data-feather="calendar"></i>
-                                    <span data-key="t-calendar">Data Dokter</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="apps-calendar.html">
-                                    <i data-feather="calendar"></i>
-                                    <span data-key="t-calendar">Jadwal Kerja</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="apps-calendar.html">
-                                    <i data-feather="calendar"></i>
-                                    <span data-key="t-calendar">Data Diagnosa Pasien</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="apps-calendar.html">
-                                    <i data-feather="calendar"></i>
-                                    <span data-key="t-calendar">Posyandu</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="apps-calendar.html">
-                                    <i data-feather="calendar"></i>
-                                    <span data-key="t-calendar">Riwayat Pemeriksaan</span>
-                                </a>
-                            </li>
+                            
 
                             <li class="menu-title" data-key="t-apps">Konfigurasi Klinik</li>
                             <li>

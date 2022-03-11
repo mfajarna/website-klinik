@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dokter_m;
 use App\Models\Dokterpoli_m;
 use App\Models\Poli_m;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -18,14 +19,30 @@ class DokterPoliController extends Controller
     public function index()
     {
 
-        $dokter = Dokter_m::latest()->get();
+        $dokter = User::where('role', 'dokter')->latest()->get();
         $poli = Poli_m::latest()->get();
 
         $model = Dokterpoli_m::with(['dokter', 'poli'])->latest()->get();
 
+
         if(request()->ajax())
         {
-            return DataTables::of($model)->make(true);
+            return DataTables::of($model)
+                        ->addColumn('action', function($data){
+                            $button = '<div class="btn-group" role="group">';
+                            $button .= '<button id="btnGroupVerticalDrop1" type="button" class="btn btn-info waves-effect btn-label waves-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Edit <i class="mdi mdi-chevron-down"></i>
+                                                            <i class="bx bx-edit-alt label-icon"></i>
+                                        </button>';
+                            $button .=  '<div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                                            <a class="dropdown-item" id="btn_active" href="#">Update Data</a>
+                                                            <a class="dropdown-item" id="btn_non_active" href="#">Hapus Data</a>
+                                        </div>';
+        
+                            return $button;
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
         }
 
         return view('pages.Dashboard.DokterPoli.index', compact('dokter','poli'));

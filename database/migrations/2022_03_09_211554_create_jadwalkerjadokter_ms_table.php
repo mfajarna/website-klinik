@@ -17,7 +17,7 @@ class CreateJadwalkerjadokterMsTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('id_dokter');
-            $table->foreign('id_dokter')->references('id')->on('tb_dokter')
+            $table->foreign('id_dokter')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->string('hari_kerja')->nullable();

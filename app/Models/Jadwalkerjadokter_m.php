@@ -20,6 +20,6 @@ class Jadwalkerjadokter_m extends Model
 
     public function dokter()
     {
-        return $this->belongsTo(Dokter_m::class, 'id_dokter');
+        return $this->belongsTo(User::class, 'id_dokter');
     }
 }

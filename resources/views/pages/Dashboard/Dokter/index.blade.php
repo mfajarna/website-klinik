@@ -118,7 +118,7 @@
                         }
 
                     var data = t.row($tr).data();
-                    var id = data.id;
+                    var id = data.id_user;
 
                     $.ajax({
                         method: 'get',
@@ -128,9 +128,11 @@
                         {
                             $('#ModalJadwal').modal('show');
 
-                            
+                            console.log(res)
 
                             jQuery.each(res, function(index, item){
+
+                                
                                 var html = ''
                                    
                                     html += '<div class="col-xl-3 col-sm-6">'
@@ -142,8 +144,7 @@
                                                 
                                                 html += '<div class="d-flex align-items-center">'
                                                 html += '<div class="flex-1 ms-3">'
-                                                    html += '<h5 class="font-size-15 mb-1" id="nama_dokter"> ' + item.dokter.nama_dokter + ' </h5>'
-                                                    html += '<p class="text-muted mb-0" id="spesialis">' + item.dokter.bidang_keahlian + '</p>'
+                                                    html += '<h5 class="font-size-15 mb-1" id="nama_dokter">Jadwal Praktek ' + item.dokter.name + ' </h5>'
                                                 html += ' </div>'
                                                 html += ' </div>'
                                                 

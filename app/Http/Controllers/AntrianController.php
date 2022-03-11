@@ -154,10 +154,15 @@ class AntrianController extends Controller
     {
         $id = $request->id;
 
+        $dataPoli = Antrian_m::with('poli')->where('id',$id)->first();
+        $antrian_poli = $dataPoli['no_antrian'];
+        $huruf_antrian = substr($antrian_poli, 0, 2);
+
+        $resetAntrian = $huruf_antrian . 0;
 
         $model = Antrian_m::findOrFail($id);
 
-        $model->no_antrian = 0;
+        $model->no_antrian = $resetAntrian;
         $model->update();
 
         response()->json($model);
@@ -169,20 +174,33 @@ class AntrianController extends Controller
         $id = $request->id;
 
         $max_kode = Antrian_m::where('id', $id)->max('no_antrian');
+
+        $value_code = substr($max_kode, 2);
+
+        $next_antrian = $value_code + 1;
+
+        
+
         $dataPoli = Antrian_m::with('poli')->where('id',$id)->first();
+
+        $antrian_poli = $dataPoli['no_antrian'];
+
+        $huruf_antrian = substr($antrian_poli, 0, 2);
 
 
         $namaPoli = $dataPoli['poli']['nama_poli'];
-        $nextPoli = $max_kode + 1;
+        $nextPoli = $huruf_antrian. $next_antrian;
 
 
         $model = Antrian_m::findOrFail($id);
 
-        $model->no_antrian = $max_kode + 1;
+        $model->no_antrian = $nextPoli;
         $model->update();
 
 
         return response()->json([$namaPoli, $nextPoli]);
+
+    
          toast()->success('Berhasil Next Antrian');
     }
 }

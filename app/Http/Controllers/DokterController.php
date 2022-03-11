@@ -20,7 +20,7 @@ class DokterController extends Controller
     public function index()
     {
 
-        $model = Dokter_m::with('jadwal_kerja')->get();
+        $model = Dokter_m::all();
         
 
         if(request()->ajax())
@@ -80,16 +80,7 @@ class DokterController extends Controller
         ]);
 
 
-        $dataDokter = new Dokter_m();
-
-        $dataDokter->nama_dokter = $validation['nama_dokter'];
-        $dataDokter->email = $validation['email'];
-        $dataDokter->bidang_keahlian = $request->bidang_keahlian;
-        $dataDokter->password = Hash::make('Dokter123');
-        $dataDokter->role = 'dokter';
-
-        $dataDokter->save();
-
+        
         $user = new User();
 
         $user->name = $validation['nama_dokter'];
@@ -100,6 +91,19 @@ class DokterController extends Controller
         $user->save();
 
 
+        $dataDokter = new Dokter_m();
+
+        $dataDokter->id_user = $user->id;
+        $dataDokter->nama_dokter = $validation['nama_dokter'];
+        $dataDokter->email = $validation['email'];
+        $dataDokter->bidang_keahlian = $request->bidang_keahlian;
+        $dataDokter->password = Hash::make('Dokter123');
+        $dataDokter->role = 'dokter';
+
+        $dataDokter->save();
+
+
+
         $data = $request->all();
 
     
@@ -107,7 +111,7 @@ class DokterController extends Controller
         {
 
             $dataJamKerja = new Jadwalkerjadokter_m();
-            $dataJamKerja->id_dokter = $dataDokter->id;
+            $dataJamKerja->id_dokter = $user->id;
     
 
             $dataJamKerja->hari_kerja = $val;

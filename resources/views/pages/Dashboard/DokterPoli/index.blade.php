@@ -75,8 +75,8 @@
                     {
                         "targets": 0,
                         "class": "text-sm",
-                        data: "dokter.nama_dokter",
-                        name: "dokter.nama_dokter"
+                        data: "dokter.name",
+                        name: "dokter.name"
                     },
                     {
                         "targets": 1,
@@ -88,7 +88,25 @@
                         "targets": 2,
                         "class": "text-sm",
                         data: "status",
-                        name: "status"
+                        name: "status",
+                        render: function(data, type, full, meta)
+                            {
+                                if(data == "active")
+                                {
+                                    return '<span class="badge badge-pill badge-soft-success font-size-11">Active</span>'
+                                }else{
+                                    return '<span class="badge badge-pill badge-soft-danger font-size-11">Non-Active</span>'
+                                }   
+                                
+                            }
+                    },
+                    {
+                        "targets": 3,
+                        
+                        "class": "align-items-center",
+                        data: "action",
+                        name: "action",
+                        orderable: false
                     },
                 ],
             })

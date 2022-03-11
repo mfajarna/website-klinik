@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Antrian_m;
+use App\Models\Dokterpoli_m;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -13,7 +16,22 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('pages.Dashboard.Dashboard');
+        $id = Auth::user()->id;
+
+        $id_poli = [];
+
+        $antrian_dokter = Dokterpoli_m::where('id_dokter', $id)->get();
+
+        foreach($antrian_dokter as $data)
+        {
+            array_push($id_poli, $data['id_poli']);
+        }
+
+
+       $antrian_poli = Antrian_m::with('poli')->whereIn('id_poli', $id_poli)->where('status', 'active')->get();
+
+
+        return view('pages.Dashboard.Dashboard', compact('antrian_poli'));
     }
 
     /**

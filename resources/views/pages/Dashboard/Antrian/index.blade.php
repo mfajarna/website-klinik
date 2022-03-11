@@ -45,7 +45,7 @@
                                         <div class="flex-grow-1">
                                             <h4 class="text-muted mb-3 lh-1 d-block text-truncate">{{ $antrians->poli->nama_poli }}</h4>
                                             <h4 class="mb-3">
-                                                <span class="counter-value" data-target="{{ $antrians->no_antrian }}">{{ $antrians->no_antrian }}</span>
+                                                <span>{{ $antrians->no_antrian }}</span>
                                             </h4>
                                             <div class="text-nowrap">
                                                 <div class="row">

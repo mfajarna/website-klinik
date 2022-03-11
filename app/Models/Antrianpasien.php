@@ -5,21 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Dokterpoli_m extends Model
+class Antrianpasien extends Model
 {
     use HasFactory;
 
-    protected $table = "tb_dokterpoli";
+    protected $table ="tb_antrian_pasien";
+
     protected $fillable = [
-        'id_dokter',
+        'id_pasien',
         'id_poli',
-        'status'
+        'no_antrian'
     ];
 
 
-    public function dokter()
+    public function pasien()
     {
-        return $this->belongsTo(User::class, 'id_dokter');
+        return $this->belongsTo(Pasien_m::class, 'id_pasien');
     }
 
     public function poli()

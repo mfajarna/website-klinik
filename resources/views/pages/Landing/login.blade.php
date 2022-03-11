@@ -1,4 +1,4 @@
-@extends('layouts.Landing.landing')
+@extends('layouts.Auth.index')
 
 @section('title', 'Login')
 

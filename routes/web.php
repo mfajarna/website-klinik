@@ -7,6 +7,7 @@ use App\Http\Controllers\DokterController;
 use App\Http\Controllers\DokterPoliController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\Pendaftaranpemeriksaan;
 use App\Http\Controllers\PoliController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,8 @@ Route::resource('auth-login', LandingController::class);
 Route::resource('/', IndexController::class);
 
 Route::get('auth-register', [LandingController::class, 'register']);
+
+Route::resource('pendaftaran', Pendaftaranpemeriksaan::class);
 
 
 

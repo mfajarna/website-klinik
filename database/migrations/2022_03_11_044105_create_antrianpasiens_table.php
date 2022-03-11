@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAntrianMsTable extends Migration
+class CreateAntrianpasiensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class CreateAntrianMsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_antrian', function (Blueprint $table) {
+        Schema::create('tb_antrian_pasien', function (Blueprint $table) {
             $table->id();
+                        
+            $table->unsignedBigInteger('id_pasien');
+            $table->foreign('id_pasien')->references('id')->on('tb_pasien')
+                ->onUpdate('cascade')->onDelete('cascade');
 
             $table->unsignedBigInteger('id_poli');
             $table->foreign('id_poli')->references('id')->on('tb_poli')
                 ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->string('status')->nullable();
             $table->string('no_antrian')->nullable();
 
             $table->timestamps();
@@ -34,6 +37,6 @@ class CreateAntrianMsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_antrian');
+        Schema::dropIfExists('tb_antrian_pasien');
     }
 }

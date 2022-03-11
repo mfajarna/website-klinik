@@ -17,7 +17,7 @@ class CreateDokterpoliMsTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('id_dokter');
-            $table->foreign('id_dokter')->references('id')->on('tb_dokter')
+            $table->foreign('id_dokter')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->unsignedBigInteger('id_poli');

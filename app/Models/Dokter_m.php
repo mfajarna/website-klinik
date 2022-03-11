@@ -32,7 +32,8 @@ class Dokter_m extends Authenticatable
         'nama_dokter',
         'email',
         'password',
-        'role'
+        'role',
+        'id_user'
      ];
 
 
@@ -71,15 +72,14 @@ class Dokter_m extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function jadwal_kerja()
-    {
-        return $this->hasOne(Jadwalkerjadokter_m::class, 'id');
-    }
 
 
-    public function dokter_poli()
+
+
+
+    public function user()
     {
-        return $this->hasMany(Dokterpoli_m::class, 'id');
+        return $this->belongsTo(User::class, 'id_user');
     }
 
 

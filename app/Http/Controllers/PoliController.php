@@ -65,6 +65,26 @@ class PoliController extends Controller
             'desc_poli'     => 'required|string|max:10000'
         ]);
 
+        $name = $validate['nama_poli'];
+
+        //split the name to a maximum of 2 array values.
+        list ($first_name, $second_names) = explode(' ', $name, 2);
+
+        $first_name = explode(' ', $first_name);
+
+        $second_names = explode(' ', $second_names);
+
+        foreach ($first_name as $key => $value) {
+            $first_name[$key] = $value[0];
+        }
+
+
+        foreach ($second_names as $key => $value) {
+            $second_names[$key] = $value[0];
+        }
+
+        $nama_poli =  implode(' ', $first_name). implode(' ', $second_names);
+
         $poli = new Poli_m();
         $poli->nama_poli = $validate['nama_poli'];
         $poli->desc_poli = $validate['desc_poli'];
@@ -75,7 +95,7 @@ class PoliController extends Controller
         $antrian = new Antrian_m();
         $antrian->id_poli = $poli->id;
         $antrian->status = 'non-active';
-        $antrian->no_antrian = 0;
+        $antrian->no_antrian = $nama_poli . 0;
 
         $antrian->save();
 
@@ -89,6 +109,11 @@ class PoliController extends Controller
 
             return redirect()->route('menu.poli.index');
         }
+
+
+
+
+        
     }
 
     /**

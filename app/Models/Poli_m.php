@@ -27,4 +27,9 @@ class Poli_m extends Model
     {
         return $this->hasMany(Dokterpoli_m::class, 'id');
     }
+
+    public function antrianPasien()
+    {
+        return $this->hasMany(Antrianpasien::class, 'id');
+    }
 }

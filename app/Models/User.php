@@ -62,4 +62,20 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    public function dokter()
+    {
+        return $this->hasMany(Dokter_m::class, 'id');
+    }
+
+    public function jadwal_kerja()
+    {
+        return $this->hasOne(Jadwalkerjadokter_m::class, 'id');
+    }
+
+    public function dokter_poli()
+    {
+        return $this->hasMany(Dokterpoli_m::class, 'id');
+    }
 }
