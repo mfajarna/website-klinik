@@ -125,7 +125,7 @@
                                                             <p class="card-title-desc">*Hanya poli yang sudah buka yang tersedia</p>
                             
                                                             <div class="mt-4">
-                                                                <button type="submit" class="btn btn-primary w-md">Daftar Periksa</button>
+                                                                <button type="submit" id="submit_data" class="btn btn-primary w-md">Daftar Periksa</button>
                                                             </div>
                                                     </form>
                                                 </div>
@@ -144,3 +144,12 @@
 
 
 @endsection
+
+
+@push('after-script')
+
+    <script>
+
+    </script>
+    
+@endpush

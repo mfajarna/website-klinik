@@ -7,6 +7,7 @@ use App\Models\Antrianpasien;
 use App\Models\Pasien_m;
 use App\Models\Poli_m;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Pendaftaranpemeriksaan extends Controller
 {
@@ -70,15 +71,16 @@ class Pendaftaranpemeriksaan extends Controller
         $createPasien->save();
 
 
-
-
-
         $id_poli = $validate['tujuan_poli'];
 
         $fetchPoli = Antrian_m::with('poli')->where('id', $id_poli)->first();
 
 
         $antrian_poli = $fetchPoli['no_antrian'];
+        $nama_poli = $fetchPoli['poli']['nama_poli'];
+
+        $time = date('D M Y');
+
         $huruf_antrian = substr($antrian_poli, 0, 2);
 
 
@@ -105,16 +107,34 @@ class Pendaftaranpemeriksaan extends Controller
         
         if($createPasien && $antrian_poli)
         {
-            toast()->success('Berhasil membuat data pasien');
     
-            return redirect()->route('pendaftaran.index');
+
+            $pdf = PDF::loadView('pdf.antrianpasien.antrian-pdf', [
+                'nama' => $validate['nama'],
+                'nikes' => $validate['nikes'],
+                'keluhan'   => $validate['keluhan'],
+                'nama_poli'    => $nama_poli,
+                'waktu' => $time,
+                'no_antrian'   => $no_antrian
+
+                
+            ]);
+
+            toast()->success('Berhasil membuat data pasien');
+
+            return $pdf->download('antrian.pdf'); 
+
+            // redirect()->route('pendaftaran.index');
+
+            
+    
         }else{
             toast()->error('Gagal membuat data pasien');
     
             return redirect()->route('pendaftaran.index');
-        }
-        
+        }        
 
+        
     }
 
     /**

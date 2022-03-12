@@ -56,6 +56,11 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
 
         // Route Dokter Poli
         Route::resource('dokter-poli', DokterPoliController::class);
+
+        // Route Test PDF
+        Route::get('pdf', function(){
+            return view('pdf.antrianpasien.antrian-pdf');
+        });
     }
 
 );
