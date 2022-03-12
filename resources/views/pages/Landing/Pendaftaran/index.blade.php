@@ -24,7 +24,7 @@
                     <div class="card-body">
                         <div class="tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade show active" id="v-pills-shipping" role="tabpanel" aria-labelledby="v-pills-shipping-tab">
-                                <p>A</p>
+                                
                             </div>
 
                             <div class="tab-pane fade" id="v-pills-payment" role="tabpanel" aria-labelledby="v-pills-payment-tab">
@@ -52,24 +52,24 @@
                                                     <div class="col-lg-5">
                                                         <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Data Diri Pasien</h5>
                             
-                                                        <form action="{{ route('pendaftaran.store') }}" method="POST">
+                                                        <form method="post" action={{ route('pendaftaran.store') }}>
                                                             @csrf
                                                             <div class="mb-3">
-                                                                <label class="form-label" for="formrow-firstname-input">Nama Lengkap Pasien</label>
-                                                                <input type="text" class="form-control" name="nama" id="formrow-firstname-input" placeholder="Masukan nama lengkap anda..." required>
+                                                                <label class="form-label" for="nama">Nama Lengkap Pasien</label>
+                                                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan nama lengkap anda..." required>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <div class="mb-3">
-                                                                        <label class="form-label" for="formrow-email-input">NIKES</label>
-                                                                        <input type="number" class="form-control" name="nikes" id="formrow-email-input" placeholder="Masukan nikes anda..." required>
+                                                                        <label class="form-label" for="nikes">NIKES</label>
+                                                                        <input type="number" class="form-control" name="nikes" id="nikes" placeholder="Masukan nikes anda..." required>
                                                                     </div>
                                                                 </div>
                             
                                                                 <div class="col-md-6">
                                                                     <div class="mb-3">
-                                                                        <label class="form-label" for="formrow-email-input">No Telepon</label>
-                                                                        <input type="number" maxlength="12" class="form-control" name="no_telp" id="formrow-email-input" placeholder="Masukan nomor telepon anda..." required>
+                                                                        <label class="form-label" for="no_telp">No Telepon</label>
+                                                                        <input type="number" maxlength="12" class="form-control" name="no_telp" id="no_telp" placeholder="Masukan nomor telepon anda..." required>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -78,7 +78,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="mb-3">
                                                                         <label class="form-label" for="formrow-email-input">Jenis Kelamin</label>
-                                                                        <select class="form-select" name="jenis_kelamin">
+                                                                        <select class="form-select" name="jenis_kelamin" id="jenis_kelamin">
                                                                             <option value="L">Laki-Laki</option>
                                                                             <option value="P">Perempuan</option>
                                                                         </select>
@@ -87,20 +87,20 @@
                             
                                                                 <div class="col-md-6">
                                                                     <div class="mb-3">
-                                                                        <label class="form-label" for="form-umur">Umur</label>
-                                                                        <input type="number" class="form-control" name="umur" id="form-umur" placeholder="Masukan umur anda disini..." required>
+                                                                        <label class="form-label" for="umur">Umur</label>
+                                                                        <input type="number" class="form-control" name="umur" id="umur" placeholder="Masukan umur anda disini..." required>
                                                                     </div>
                                                                 </div>
                                                             </div>
                             
                                                             <div class="mb-3">
-                                                                <label class="form-label" for="formrow-alamat-input">Alamat</label>
-                                                                <textarea class="form-control" name="alamat" id="formrow-alamat-input" placeholder="Masukan Alamat anda disini.." required></textarea>
+                                                                <label class="form-label" for="alamat">Alamat</label>
+                                                                <textarea class="form-control" name="alamat" id="alamat" placeholder="Masukan Alamat anda disini.." required></textarea>
                                                             </div>
                             
                                                             <div class="mb-3">
-                                                                <label class="form-label" for="form-nama_orang_tua">Nama Orang Tua *opsional</label>
-                                                                <input type="text" class="form-control" name="nama_orang_tua" id="form-nama_orang_tua" placeholder="Masukan nama orang tua anda...">
+                                                                <label class="form-label" for="nama_orang_tua">Nama Orang Tua *opsional</label>
+                                                                <input type="text" class="form-control" name="nama_orang_tua" id="nama_orang_tua" placeholder="Masukan nama orang tua anda...">
                                                             </div>
                                 
                                                       
@@ -110,12 +110,12 @@
                                                         <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i>Keluhan Pasien</h5>
                             
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="formrow-firstname-input">Keluhan</label>
-                                                            <textarea class="form-control" name="keluhan" id="formrow-firstname-input" placeholder="Masukan Keluhan anda disini.." required></textarea>
+                                                            <label class="form-label" for="keluhan">Keluhan</label>
+                                                            <textarea class="form-control" name="keluhan" id="keluhan" placeholder="Masukan Keluhan anda disini.." required></textarea>
                                                         </div>
                             
                                                         <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i>Tujuan Poli</h5>
-                                                            <select class="form-select" name="tujuan_poli">
+                                                            <select class="form-select" name="tujuan_poli" id="tujuan_poli">
                                                                     @foreach ($antrian_poli as $key => $val )
                                                                         <option value="{{ $val->id }}">{{ $val->poli->nama_poli }}</option>
                             
@@ -125,7 +125,7 @@
                                                             <p class="card-title-desc">*Hanya poli yang sudah buka yang tersedia</p>
                             
                                                             <div class="mt-4">
-                                                                <button type="submit" id="submit_data" class="btn btn-primary w-md">Daftar Periksa</button>
+                                                                <button type="submit" id="onSubmit" class="btn btn-primary w-md">Daftar Periksa</button>
                                                             </div>
                                                     </form>
                                                 </div>
@@ -149,6 +149,7 @@
 @push('after-script')
 
     <script>
+
 
     </script>
     

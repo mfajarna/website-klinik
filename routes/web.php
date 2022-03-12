@@ -7,6 +7,7 @@ use App\Http\Controllers\DokterController;
 use App\Http\Controllers\DokterPoliController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\PdfAntrianController;
 use App\Http\Controllers\Pendaftaranpemeriksaan;
 use App\Http\Controllers\PoliController;
 use Illuminate\Support\Facades\Route;
@@ -31,7 +32,13 @@ Route::get('auth-register', [LandingController::class, 'register']);
 Route::resource('pendaftaran', Pendaftaranpemeriksaan::class);
 
 
+Route::resource('pdf-antrian', PdfAntrianController::class);
+Route::get('/download-pdf-antrian/{id}', [PdfAntrianController::class, 'exportPdf']);
 
+// Route Test PDF
+// Route::get('pdf-antrian', function(){
+//     return view('pdf.antrianpasien.antrian-pdf');
+// });
 
 Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
     function()
@@ -56,11 +63,6 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
 
         // Route Dokter Poli
         Route::resource('dokter-poli', DokterPoliController::class);
-
-        // Route Test PDF
-        Route::get('pdf', function(){
-            return view('pdf.antrianpasien.antrian-pdf');
-        });
     }
 
 );

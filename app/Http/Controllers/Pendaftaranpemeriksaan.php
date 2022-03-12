@@ -7,7 +7,7 @@ use App\Models\Antrianpasien;
 use App\Models\Pasien_m;
 use App\Models\Poli_m;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class Pendaftaranpemeriksaan extends Controller
 {
@@ -108,23 +108,23 @@ class Pendaftaranpemeriksaan extends Controller
         if($createPasien && $antrian_poli)
         {
     
-
-            $pdf = PDF::loadView('pdf.antrianpasien.antrian-pdf', [
+            $dataPdf = [
+                'id'    => $antrianPasien->id,
                 'nama' => $validate['nama'],
                 'nikes' => $validate['nikes'],
                 'keluhan'   => $validate['keluhan'],
                 'nama_poli'    => $nama_poli,
                 'waktu' => $time,
                 'no_antrian'   => $no_antrian
-
                 
-            ]);
+            ];
 
             toast()->success('Berhasil membuat data pasien');
 
-            return $pdf->download('antrian.pdf'); 
+            // auto-download pdf
+            
 
-            // redirect()->route('pendaftaran.index');
+            return redirect()->route('pdf-antrian.index', ['data' => $dataPdf]);
 
             
     
@@ -145,7 +145,7 @@ class Pendaftaranpemeriksaan extends Controller
      */
     public function show($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -156,7 +156,7 @@ class Pendaftaranpemeriksaan extends Controller
      */
     public function edit($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -168,7 +168,7 @@ class Pendaftaranpemeriksaan extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -179,6 +179,7 @@ class Pendaftaranpemeriksaan extends Controller
      */
     public function destroy($id)
     {
-        //
+        return abort(404);
     }
+
 }
