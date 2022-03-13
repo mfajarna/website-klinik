@@ -19,6 +19,7 @@ class PdfAntrianController extends Controller
 
         $data = $request->all();
 
+
         return view('pdf.antrianpasien.antrian-pdf', compact('data'));
     }
 

@@ -30,15 +30,13 @@ Route::resource('/', IndexController::class);
 Route::get('auth-register', [LandingController::class, 'register']);
 
 Route::resource('pendaftaran', Pendaftaranpemeriksaan::class);
+Route::get('/getPasien', [Pendaftaranpemeriksaan::class, 'getPasien'])->name('pendaftaran.getpasien');
+Route::post('/create-pasien-terdaftar', [Pendaftaranpemeriksaan::class, 'createPasienTerdaftar'])->name('pendaftaran.pasienbaru');
 
 
 Route::resource('pdf-antrian', PdfAntrianController::class);
 Route::get('/download-pdf-antrian/{id}', [PdfAntrianController::class, 'exportPdf']);
 
-// Route Test PDF
-// Route::get('pdf-antrian', function(){
-//     return view('pdf.antrianpasien.antrian-pdf');
-// });
 
 Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
     function()

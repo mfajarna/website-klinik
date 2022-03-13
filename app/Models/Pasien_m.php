@@ -26,5 +26,10 @@ class Pasien_m extends Model
     {
         return $this->hasMany(Antrianpasien::class, 'id');
     }
+
+    public function keluhan()
+    {
+        return $this->hasMany(Keluhanpasien_m::class, 'id');
+    }
     
 }
