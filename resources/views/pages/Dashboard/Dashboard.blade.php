@@ -11,8 +11,6 @@
 
         <audio src="" hidden></audio>
 
-
-        
         @foreach ($antrian_poli as $antrians )
             <div class="col-xl-3 col-md-6">
                 <!-- card -->
@@ -29,7 +27,7 @@
                                         <div class="flex-grow-1">
                                             <h4 class="text-muted mb-3 lh-1 d-block text-truncate">{{ $antrians->poli->nama_poli }}</h4>
                                             <h4 class="mb-3">
-                                                <span class="counter-value" data-target="{{ $antrians->no_antrian }}">{{ $antrians->no_antrian }}</span>
+                                                <span class="" data-target="{{ $antrians->no_antrian }}">{{ $antrians->no_antrian }}</span>
                                             </h4>
                                             <div class="text-nowrap">
                                                 <div class="row">
@@ -48,10 +46,7 @@
                                             
                                             </div>
                                         </div>
-                                    </div>
-        
-                    
-                                    
+                                    </div>    
                                 </div>
                             </div>
 
@@ -70,10 +65,52 @@
                 </div><!-- end card -->
             </div>
         @endforeach
-
-
-
     </div>
+
+
+    <div class="mb-3">
+        <h5 class="card-title">Daftar Pasien Antrian <span class="text-muted fw-normal ms-2">({{ $countAntrianPasien}})</span></h5>        
+        <div class="row">
+
+            @foreach($fetchAntrianPasien as $item)
+            <div class="col-xl-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-lg">
+                                <div class="avatar-title bg-soft-primary text-primary display-4 m-0 rounded-circle">
+                                    <i class="bx bxs-user-circle"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1 ms-3">
+                                <h5 class="font-size-15 mb-1"><a href="#" class="text-dark">{{ $item['pasien']['nama'] }}</a></h5>
+                            <p class="text-muted mb-0">Pasien</p>
+                            </div>
+                        </div>
+                        <div class="mt-3 pt-1">
+                            <p class="text-muted mb-0"><i class="mdi mdi-format-list-numbered font-size-15 align-middle pe-2 text-primary"></i>
+                                No Antrian: {{ $item['no_antrian'] }}</p>
+                            <p class="text-muted mb-0 mt-2"><i class="mdi mdi-list-status font-size-15 align-middle pe-2 text-primary"></i>
+                                Status: <span class="badge rounded-pill badge-soft-warning">{{ $item['status']}}</span></p>
+                            <p class="text-muted mb-0 mt-2"><i class="mdi mdi-account-clock font-size-15 align-middle pe-2 text-primary"></i>
+                                Pengajuan Antrian: {{ $item['created_at'] }}</p>
+                        </div>
+                    </div>
+
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-success text-truncate"><i class="uil uil-user me-1"></i>Selesai Periksa</button>
+                        <a href="{{ route('menu.dokter.pemeriksaanpasien', ['id' => $item['id_pasien']]) }}" class="btn btn-outline-primary text-truncate"><i class="uil uil-envelope-alt me-1"></i>Mulai Periksa</a>
+                    </div>
+                </div>
+                <!-- end card -->
+            </div> 
+
+            @endforeach
+
+
+        </div>
+    </div>
+
 
     @endif
 
@@ -112,8 +149,6 @@
 
             var text = "Antrian nomor " + next_antrian +" pada " + nama_poli + " harap segera memasuki ruangan periksa"
             text = text.trim();
-
-
              $.ajax({
                     method: "POST",
                     url: url,
@@ -135,6 +170,7 @@
                     dataType: "json"
                 }).then(function (data){
                     $('audio').attr('src', "data:audio/mpeg;base64," + data.audioContent).get(0).play()
+                    
                 })
 
         }

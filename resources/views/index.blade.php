@@ -103,27 +103,19 @@
         <div class="card-body">
             <div id="carouselExampleCaption" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner" role="listbox">
-        <div class="carousel-item">
-            <img src="assets/images/small/img-7.jpg" alt="..." class="d-block img-fluid mx-auto">
-            <div class="carousel-caption d-none d-md-block text-white-50">
-                <h5 class="text-white">First slide label</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+        @foreach($kegiatan as $kegiatans)
+            <div class="carousel-item active">
+                <img src="{{ url('storage/'. $kegiatans->gambar_kegiatan) }}" alt="..." class="d-block img-fluid mx-auto">
+                <div class="carousel-caption d-none d-md-block text-white-50">
+                    <h5 class="text-white">{{ $kegiatans->nama_kegiatan }}</h5>
+                    <p>{{$kegiatans->deskripsi_kegiatan}}.</p>
+                </div>
             </div>
-        </div>
-        <div class="carousel-item active">
-            <img src="assets/images/small/img-5.jpg" alt="..." class="d-block img-fluid mx-auto">
-            <div class="carousel-caption d-none d-md-block text-white-50">
-                <h5 class="text-white">Second slide label</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="assets/images/small/img-4.jpg" alt="..." class="d-block img-fluid mx-auto">
-            <div class="carousel-caption d-none d-md-block text-white-50">
-                <h5 class="text-white">Third slide label</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-        </div>
+        @endforeach
+
+
+
     </div>
     <a class="carousel-control-prev" href="#carouselExampleCaption" role="button" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

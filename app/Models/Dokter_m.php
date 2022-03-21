@@ -73,14 +73,12 @@ class Dokter_m extends Authenticatable
     ];
 
 
-
-
-
-
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user');
     }
+
+
 
 
 

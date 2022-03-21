@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
@@ -10,6 +11,8 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PdfAntrianController;
 use App\Http\Controllers\Pendaftaranpemeriksaan;
 use App\Http\Controllers\PoliController;
+use App\Http\Controllers\RiwayatkesehatanController;
+use App\Http\Controllers\UploadKegiatanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('auth-login', LandingController::class);
+
+Route::get('/display-antrian', [DashboardController::class,'displayAntrian']);
 
 Route::resource('/', IndexController::class);
 
@@ -58,9 +63,26 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         // Route Dokter
         Route::resource('dokter', DokterController::class);
         Route::get('view-jadwal', [DokterController::class, 'lihatJadwalKerja'])->name('dokter.view-jadwal');
+        Route::get('pemeriksaan-pasien/{id}', [DokterController::class, 'pemeriksaanPasien'])->name('dokter.pemeriksaanpasien');
+        Route::post('pemeriksaan-create', [DokterController::class, 'createPemeriksaan'])->name('dokter.pemeriksaan.create');
+        Route::get('pemeriksaan-view', [DokterController::class, 'viewPdf'])->name('dokter.pemeriksaan.view-pdf');
+        Route::get('pemeriksaan-download-pdf', [DokterController::class, 'printPdf'])->name('dokter.pemeriksaan.download-pdf');
 
         // Route Dokter Poli
         Route::resource('dokter-poli', DokterPoliController::class);
+
+        // Route Riwayat Kesehatan Dokter
+        Route::resource('riwayat-kesehatan', RiwayatkesehatanController::class);
+        Route::get('/get-riwayat-kesehatan', [RiwayatkesehatanController::class, 'getRiwayatKesehatan'])->name('riwayat-kesehatan.getriwayat');
+        Route::get('/print-pdf-kesehatan', [RiwayatkesehatanController::class, 'downloadPdf']);
+    
+        // Route Upload Jadwal Kegiatan
+        Route::resource('upload-kegiatan', UploadKegiatanController::class);
+        Route::get('delete-kegiatan', [UploadKegiatanController::class, 'deleteKegiatan'])->name('upload-kegiatan.hapus');
+
+        // Route Admin Controller
+        Route::resource('admin', AdminController::class);
+        Route::get('hapus-admin', [AdminController::class, 'hapusAdmin'])->name('admin.hapus');
     }
 
 );

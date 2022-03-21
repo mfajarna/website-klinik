@@ -107,6 +107,7 @@ class Pendaftaranpemeriksaan extends Controller
         $antrianPasien->id_pasien = $createPasien->id;
         $antrianPasien->id_poli = $id_poli;
         $antrianPasien->no_antrian = $no_antrian;
+        $antrianPasien->status = "Menunggu";
 
         $antrianPasien->save();
 
@@ -193,8 +194,18 @@ class Pendaftaranpemeriksaan extends Controller
     public function getPasien(Request $request)
     {
         $nikes = $request->nikes;
+        $id = $request->id;
 
-        $model = Pasien_m::where('nikes', $nikes)->first();
+        if($nikes)
+        {
+            $model = Pasien_m::where('nikes', $nikes)->first();
+        }
+        if($id)
+        {
+            $model = Pasien_m::where('id',$id)->first();
+        }
+
+        
 
         return response()->json($model);
 
@@ -252,6 +263,7 @@ class Pendaftaranpemeriksaan extends Controller
         $antrianPasien->id_pasien = $data['id_pasien'];
         $antrianPasien->id_poli = $id_poli;
         $antrianPasien->no_antrian = $no_antrian;
+        $antrianPasien->status = "Menunggu";
 
         $antrianPasien->save();
 

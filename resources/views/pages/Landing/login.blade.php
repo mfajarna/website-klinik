@@ -83,8 +83,8 @@
 
 
                     <div class="mt-5 text-center">
-                        <p class="text-muted mb-0">Belum punya akun ? <a href="{{ url('/auth-register')}}"
-                                class="text-primary fw-semibold"> Daftar sekarang </a> </p>
+                        {{-- <p class="text-muted mb-0">Belum punya akun ? <a href="{{ url('/auth-register')}}"
+                                class="text-primary fw-semibold"> Daftar sekarang </a> </p> --}}
                     </div>
                 </div>
                 <div class="mt-4 mt-md-5 text-center">

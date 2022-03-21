@@ -14,9 +14,6 @@
 
 @endpush
 
-
-
-
 @section('content')
 
 @include('modal.dokter.index')

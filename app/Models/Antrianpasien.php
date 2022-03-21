@@ -14,7 +14,8 @@ class Antrianpasien extends Model
     protected $fillable = [
         'id_pasien',
         'id_poli',
-        'no_antrian'
+        'no_antrian',
+        'status'
     ];
 
 

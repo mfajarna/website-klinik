@@ -2,9 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Antrian_m;
+use App\Models\Antrianpasien;
 use App\Models\Dokter_m;
 use App\Models\Jadwalkerjadokter_m;
+use App\Models\Keluhanpasien_m;
+use App\Models\Pasien_m;
+use App\Models\Pemeriksaanpasien_m;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -149,7 +157,7 @@ class DokterController extends Controller
      */
     public function show($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -160,7 +168,7 @@ class DokterController extends Controller
      */
     public function edit($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -172,7 +180,7 @@ class DokterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -183,7 +191,7 @@ class DokterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return abort(404);
     }
 
     public function lihatJadwalKerja(Request $request)
@@ -198,5 +206,123 @@ class DokterController extends Controller
         {   
             return response()->json('Something went wrong', '500');
         }
+    }
+
+    public function pemeriksaanPasien(Request $request, $id)
+    {
+
+        $pasien = Pasien_m::findOrFail($id);
+
+        
+
+        $time = Carbon::now();
+        $now = $time->toDateString();
+
+        $keluhan = Keluhanpasien_m::where('id_pasien', $id)->whereDate('created_at', $now)->first();
+        $antrian = Antrianpasien::where('id_pasien', $id)->whereDate('created_at', $now)->first();
+
+        $id_pasien = $antrian['id'];
+
+
+    
+
+        return view('pages.Dashboard.Dokter.pemeriksaan', compact('pasien', 'keluhan', 'id_pasien'));
+    }
+
+    public function createPemeriksaan(Request $request)
+    {
+        $validate = $request->validate([
+            'id_pasien' => 'required',
+            'id_dokter' => 'required',
+            'id_antrian'    => 'required',
+            'pemeriksaan'   => 'required|string',
+            'diagnosis' => 'required|string',
+            'terapi'    => 'required|string',
+        ]);
+
+
+        $pemeriksaan = new Pemeriksaanpasien_m();
+        $pemeriksaan->id_pasien = $validate['id_pasien'];
+        $pemeriksaan->id_dokter = $validate['id_dokter'];
+        $pemeriksaan->pemeriksaan = $validate['pemeriksaan'];
+        $pemeriksaan->diagnosis = $validate['diagnosis'];
+        $pemeriksaan->terapi = $validate['terapi'];
+
+        $pemeriksaan->save();
+
+        $antrian = Antrianpasien::findOrFail($validate['id_antrian']);
+
+        $antrian->status = "Selesai";
+        $antrian->save();
+
+
+        if($pemeriksaan && $antrian)
+        {
+            $dataParam = $pemeriksaan;
+
+            toast()->success('Berhasil membuat pemeriksaan pasien');
+
+            return redirect()->route('menu.dokter.pemeriksaan.view-pdf', ['dataParam' => $dataParam]);
+        }else{
+            toast()->error('Gagal membuat pemeriksaan pasien');
+
+            return redirect()->route('menu.dokter.pemeriksaanpasien', ['id' => $validate['id_pasien']]);
+        }
+    }
+
+
+    public function viewPdf(Request $request)
+    {
+        $id_antrian = $request->all();
+
+        $data = Pemeriksaanpasien_m::with(['pasien','dokter'])->where('id', $id_antrian)->first();
+
+  
+        $nama_pasien = $data['pasien']['nama'];
+        $nikes = $data['pasien']['nikes'];
+        $no_telp = $data['pasien']['no_telp'];
+        $alamat = $data['pasien']['alamat'];
+        $umur = $data['pasien']['umur'];
+        $jenis_kelamin = $data['pasien']['jenis_kelamin'];
+        $nama_dokter = $data['dokter']['name'];
+        $pemeriksaan = $data['pemeriksaan'];
+        $diagnosis = $data['diagnosis'];
+        $terapi = $data['terapi'];
+        $tanggal_periksa = $data['updated_at'];
+
+
+
+
+        $param = [
+            'nama_pasien'       => $nama_pasien,
+            'nikes'             => $nikes,
+            'no_telp'           => $no_telp,
+            'alamat'            => $alamat,
+            'umur'              => $umur,
+            'jenis_kelamin'     => $jenis_kelamin,
+            'nama_dokter'       => $nama_dokter,
+            'pemeriksaan'       => $pemeriksaan,
+            'diagnosis'         => $diagnosis,
+            'terapi'            => $terapi,
+            'tanggal_periksa'    => $tanggal_periksa
+        ];
+
+
+        return view('pages.Dashboard.Dokter.pemeriksaan-blank', ['param' => $param]);
+    }
+
+
+    public function printPdf(Request $request)
+    {
+        $data = $request->all();
+
+        
+        $pdf = PDF::loadView('pdf.pemeriksaan.pemeriksaan-pdf', ['data' => $data]);
+
+
+        return $pdf->download('pemeriksaan-pasien.pdf');
+        // return view('pdf.pemeriksaan.pemeriksaan-pdf',['data' => $data]);
+
+
     }
 }

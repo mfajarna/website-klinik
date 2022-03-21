@@ -31,5 +31,10 @@ class Pasien_m extends Model
     {
         return $this->hasMany(Keluhanpasien_m::class, 'id');
     }
+
+    public function pemeriksaan()
+    {
+        return $this->hasMany(Pemeriksaanpasien_m::class, 'id');
+    }
     
 }

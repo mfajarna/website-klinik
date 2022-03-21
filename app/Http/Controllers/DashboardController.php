@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Antrian_m;
+use App\Models\Antrianpasien;
 use App\Models\Dokterpoli_m;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +21,10 @@ class DashboardController extends Controller
         $id = Auth::user()->id;
 
         $id_poli = [];
+        $id_antrian = [];
+
+        $now = Carbon::now();
+        $time = $now->toDateString();
 
         $antrian_dokter = Dokterpoli_m::where('id_dokter', $id)->get();
 
@@ -27,11 +33,26 @@ class DashboardController extends Controller
             array_push($id_poli, $data['id_poli']);
         }
 
+        $fetchAntrianPasien = Antrianpasien::with(['pasien'])
+                                            ->whereIn('id_poli', $id_poli)
+                                            ->whereDate('created_at', $time)
+                                            ->where('status', 'Menunggu')
+                                            ->get();
 
-       $antrian_poli = Antrian_m::with('poli')->whereIn('id_poli', $id_poli)->where('status', 'active')->get();
 
+        $countAntrianPasien =  Antrianpasien::whereIn('id_poli', $id_poli)
+                                            ->whereDate('created_at', $time)
+                                            ->where('status', 'Menunggu')
+                                            ->count();
 
-        return view('pages.Dashboard.Dashboard', compact('antrian_poli'));
+        $antrian_poli = Antrian_m::with('poli')
+                                    ->whereIn('id_poli', $id_poli)
+                                    ->where('status', 'active')
+                                    ->get();
+
+    
+
+        return view('pages.Dashboard.Dashboard', compact('antrian_poli', 'countAntrianPasien','fetchAntrianPasien'));
     }
 
     /**
@@ -98,5 +119,14 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function displayAntrian(Request $request)
+    {
+
+        $antrian = Antrian_m::with('poli')->where('status', 'active')->latest()->get();
+
+        return view('pages.Landing.notification', compact('antrian'));
     }
 }

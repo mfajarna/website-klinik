@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Antrian_m;
+use App\Models\Uploadkegiatan_m;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -15,8 +16,9 @@ class IndexController extends Controller
     public function index()
     {
         $antrian = Antrian_m::with('poli')->where('status', 'active')->latest()->get();
+        $kegiatan = Uploadkegiatan_m::where('status_kegiatan', 'active')->latest()->get();
 
-        return view('index', compact('antrian'));
+        return view('index', compact('antrian','kegiatan'));
     }
 
     /**
