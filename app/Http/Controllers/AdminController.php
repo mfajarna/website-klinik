@@ -63,11 +63,13 @@ class AdminController extends Controller
         $validation = $request->validate([
             'nama_admin'   => 'required|string',
             'email'  => 'required|email|unique:users,email',
+            'username' => 'required|string|unique:users,username'
         ]);
 
         $user = new User();
 
         $user->name = $validation['nama_admin'];
+        $user->username = $validation['username'];
         $user->email = $validation['email'];
         $user->password = Hash::make('Admin123');
         $user->role = 'admin';

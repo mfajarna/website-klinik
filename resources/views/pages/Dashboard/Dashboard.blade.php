@@ -6,6 +6,55 @@
 @section('content')
 
 
+    @if(Auth::user()->role == "superadmin" || Auth::user()->role == "admin")
+        <div class="row">
+
+        
+    @foreach ($count_antrian as $item)
+    <div class="col-xl-3 col-md-6">
+        <!-- card -->
+        <div class="card card-h-100">
+            <!-- card body -->
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="d-flex align-items-center">
+
+
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1">
+                                    <h4 class="text-muted mb-3 lh-1 d-block text-truncate">Jumlah Pasien {{ $item->nama_poli }}</h4>
+                                    <h4 class="mb-3">
+                                        <span class="" data-target="{{ $item->total_pasien }}">{{ $item->total_pasien}}</span>
+                                    </h4>
+                                    <div class="text-nowrap">
+                                        <div class="row">
+                                            <div class="col-xl-3 mr-4">
+                                                <span class="ms-1 text-muted font-size-13">Status Poli </span>
+                                                    <span class="badge bg-soft-success text-success" id="status_poli">Active</span>      
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                    </div> 
+                </div>
+
+
+
+            </div><!-- end card body -->
+        </div><!-- end card -->
+    </div>
+    @endforeach
+            
+        </div>
+
+    @endif
+
+
     @if(Auth::user()->role == "dokter")
     <div class="row">
 

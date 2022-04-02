@@ -22,6 +22,8 @@ class Pasien_m extends Model
         'nama_orang_tua'
     ];
 
+    
+
     public function antrian()
     {
         return $this->hasMany(Antrianpasien::class, 'id');

@@ -45,8 +45,8 @@
                     <form class="mt-4 pt-2" method="POST" action="{{ route('login') }}" >
                         @csrf
                         <div class="form-floating form-floating-custom mb-4">
-                            <input type="email" class="form-control" id="input-username" name="email" :value="old('email')" required autofocus placeholder="Masukan Email Anda...">
-                            <label for="input-username">Email</label>
+                            <input type="text" class="form-control" id="input-username" name="auth" :value="old('auth')" required autofocus placeholder="Masukan Email/Username Anda...">
+                            <label for="input-username">Email/Username</label>
                             <div class="form-floating-icon">
                                <i data-feather="users"></i>
                             </div>

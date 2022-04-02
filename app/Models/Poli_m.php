@@ -14,7 +14,7 @@ class Poli_m extends Model
     protected $fillable = [
         'nama_poli',
         'desc_poli',
-        'status'
+        'is_active'
     ];
 
 

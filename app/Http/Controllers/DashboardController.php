@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Antrian_m;
 use App\Models\Antrianpasien;
 use App\Models\Dokterpoli_m;
+use App\Models\Pasien_m;
+use App\Models\Poli_m;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -22,15 +25,22 @@ class DashboardController extends Controller
 
         $id_poli = [];
         $id_antrian = [];
+        $id_poli_aktif = [];
 
         $now = Carbon::now();
         $time = $now->toDateString();
 
+        $getPoli = Poli_m::where('is_active', 1)->get();
         $antrian_dokter = Dokterpoli_m::where('id_dokter', $id)->get();
 
         foreach($antrian_dokter as $data)
         {
             array_push($id_poli, $data['id_poli']);
+        }
+
+        foreach($getPoli as $data)
+        {
+            array_push($id_poli_aktif, $data['id']);
         }
 
         $fetchAntrianPasien = Antrianpasien::with(['pasien'])
@@ -50,9 +60,19 @@ class DashboardController extends Controller
                                     ->where('status', 'active')
                                     ->get();
 
+
+        $now = date('Y-m-d');
+
+        $count_antrian = DB::table('tb_antrian_pasien')
+                              ->select('tb_poli.nama_poli', DB::raw('COUNT(tb_antrian_pasien.id_pasien) as total_pasien'))
+                              ->join('tb_pasien', 'tb_pasien.id', '=', 'tb_antrian_pasien.id_pasien')
+                              ->join('tb_poli', 'tb_poli.id', '=', 'tb_antrian_pasien.id_poli')
+                              ->whereDate('tb_antrian_pasien.created_at', $now)
+                              ->groupBy('tb_antrian_pasien.id_poli')
+                              ->get();
     
 
-        return view('pages.Dashboard.Dashboard', compact('antrian_poli', 'countAntrianPasien','fetchAntrianPasien'));
+        return view('pages.Dashboard.Dashboard', compact('antrian_poli', 'countAntrianPasien','fetchAntrianPasien', 'now', 'count_antrian'));
     }
 
     /**
