@@ -7,8 +7,9 @@ use App\Models\Antrianpasien;
 use App\Models\Keluhanpasien_m;
 use App\Models\Pasien_m;
 use App\Models\Poli_m;
+use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
 
 class Pendaftaranpemeriksaan extends Controller
 {
@@ -24,7 +25,7 @@ class Pendaftaranpemeriksaan extends Controller
                                     ->where('status', 'active')
                                     ->latest()->get();
 
-        return view('pages.Landing.Pendaftaran.index', compact('antrian_poli'));
+        return view('pages.Dashboard.Pendaftaran.index', compact('antrian_poli'));
     }
 
     /**
@@ -46,6 +47,8 @@ class Pendaftaranpemeriksaan extends Controller
     public function store(Request $request)
     {
         $validate = $request->validate([
+            'username' => 'required|string',
+            'email'     => 'required|string|unique:users,email',
             'nama'  => 'required|string',
             'nikes' => 'required|unique:tb_pasien,nikes',
             'no_telp'   => 'required',
@@ -57,9 +60,21 @@ class Pendaftaranpemeriksaan extends Controller
 
         ]);
         
+        
         $data = $request->all();
 
+        $createUser = new User();
+        $createUser->name = $validate['nama'];
+        $createUser->email = $validate['email'];
+        $createUser->username = $validate['username'];
+        $createUser->password = Hash::make('Pasien123');
+        $createUser->role = 'pasien';
+        $createUser->save();
+
+
+
         $createPasien = new Pasien_m();
+        $createPasien->id_user = $createUser->id;
         $createPasien->nama = $validate['nama'];
         $createPasien->nikes = $validate['nikes'];
         $createPasien->no_telp = $validate['no_telp'];

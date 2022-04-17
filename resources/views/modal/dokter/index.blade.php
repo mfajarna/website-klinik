@@ -21,12 +21,17 @@
                     @csrf
 
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <label for="nama_dokter" class="col-form-label">Nama Dokter:</label>
                             <input type="text" class="form-control" id="nama_dokter" name="nama_dokter" placeholder="Masukan nama dokter..." value="{{ old('nama_dokter') }}" required>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
+                            <label for="username" class="col-form-label">Username Dokter:</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Masukan username dokter..." value="{{ old('username') }}" required>
+                        </div>
+
+                        <div class="col-lg-4">
                             <label for="email" class="col-form-label">Email Dokter:</label>
                             <input type="text" class="form-control" id="email" name="email" placeholder="Masukan email..." value="{{ old('email') }}" required>
                         </div>

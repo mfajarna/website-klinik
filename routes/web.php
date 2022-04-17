@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiDokterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\AuthController;
@@ -33,11 +34,6 @@ Route::get('/display-antrian', [DashboardController::class,'displayAntrian']);
 Route::resource('/', IndexController::class);
 
 Route::get('auth-register', [LandingController::class, 'register']);
-
-Route::resource('pendaftaran', Pendaftaranpemeriksaan::class);
-Route::get('/getPasien', [Pendaftaranpemeriksaan::class, 'getPasien'])->name('pendaftaran.getpasien');
-Route::post('/create-pasien-terdaftar', [Pendaftaranpemeriksaan::class, 'createPasienTerdaftar'])->name('pendaftaran.pasienbaru');
-
 
 Route::resource('pdf-antrian', PdfAntrianController::class);
 Route::get('/download-pdf-antrian/{id}', [PdfAntrianController::class, 'exportPdf']);
@@ -83,6 +79,16 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         // Route Admin Controller
         Route::resource('admin', AdminController::class);
         Route::get('hapus-admin', [AdminController::class, 'hapusAdmin'])->name('admin.hapus');
+
+
+        // Route Abensi Dokter
+        Route::resource('absensi-dokter', AbsensiDokterController::class);
+        Route::get('/get-absensi-dokter', [AbsensiDokterController::class, 'getDokterAbsensi'])->name('absensidokter.get');
+
+        // Pendaftaran Pasien
+        Route::resource('pendaftaran', Pendaftaranpemeriksaan::class);
+        Route::get('/getPasien', [Pendaftaranpemeriksaan::class, 'getPasien'])->name('pendaftaran.getpasien');
+        Route::post('/create-pasien-terdaftar', [Pendaftaranpemeriksaan::class, 'createPasienTerdaftar'])->name('pendaftaran.pasienbaru');
     }
 
 );

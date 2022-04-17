@@ -84,6 +84,7 @@ class DokterController extends Controller
         $validation = $request->validate([
             'nama_dokter'   => 'required|string',
             'email'  => 'required|email|unique:tb_dokter,email',
+            'username'  => 'required|unique:users,username',
             'bidang_keahlian'   => 'array'
         ]);
 
@@ -93,6 +94,7 @@ class DokterController extends Controller
 
         $user->name = $validation['nama_dokter'];
         $user->email = $validation['email'];
+        $user->username = $validation['username'];
         $user->password = Hash::make('Dokter123');
         $user->role = 'dokter';
 

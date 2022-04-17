@@ -84,4 +84,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Pemeriksaanpasien_m::class, 'id');
     }
+
+    public function absensidokter()
+    {
+        return $this->hasMany(Absensidokter_m::class, 'id');
+    }
+
+    public function pasien()
+    {
+        return $this->hasMany(Pasien_m::class,'id');
+    }
 }

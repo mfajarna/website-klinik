@@ -17,7 +17,7 @@
 
             @endif
 
-            <form action="{{ route('pendaftaran.pasienbaru') }}" method="POST">
+            <form action="{{ route('menu.pendaftaran.pasienbaru') }}" method="POST">
                 @csrf
 
                 <input type="hidden" id="id_pasien" name="id_pasien">

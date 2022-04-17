@@ -12,6 +12,7 @@ class Pasien_m extends Model
     protected $table = "tb_pasien";
 
     protected $fillable = [
+        'id_user',
         'nama',
         'nikes',
         'no_telp',
@@ -21,8 +22,6 @@ class Pasien_m extends Model
         'jenis_kelamin',
         'nama_orang_tua'
     ];
-
-    
 
     public function antrian()
     {
@@ -37,6 +36,11 @@ class Pasien_m extends Model
     public function pemeriksaan()
     {
         return $this->hasMany(Pemeriksaanpasien_m::class, 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
     }
     
 }

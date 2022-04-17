@@ -1,4 +1,4 @@
-@extends('layouts.Landing.landing')
+@extends('layouts.Dashboard.dashboard')
 
 @section('title', 'Pendaftaran Pemeriksaan')
 

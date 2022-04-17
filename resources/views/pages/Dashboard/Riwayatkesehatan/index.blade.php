@@ -111,7 +111,7 @@
 
                                 $.ajax({
                                         method: 'get',
-                                        url: '{{ route("pendaftaran.getpasien") }}',
+                                        url: '{{ route("menu.pendaftaran.getpasien") }}',
                                         data: {id:id},
                                         success: function(res){
                                                 console.log(res)
