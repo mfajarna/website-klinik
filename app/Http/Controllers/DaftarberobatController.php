@@ -3,24 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Antrian_m;
-use App\Models\Antrianpasien;
+use App\Models\Pasien_m;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 
-class PdfAntrianController extends Controller
+class DaftarberobatController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
+        $model = Pasien_m::where('id_user', Auth::user()->id)->first();
 
-        $data = $request->all();
+        $nikes = $model['nikes'];
 
+        $antrian_poli = Antrian_m::with('poli')
+                        ->where('status', 'active')
+                        ->latest()->get();
 
-        return view('pdf.antrianpasien.antrian-pdf', compact('data'));
+        return view('pages.Dashboard.DaftarBerobat.index', compact('antrian_poli', 'nikes'));
     }
 
     /**
@@ -87,37 +92,5 @@ class PdfAntrianController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function exportPdf($id)
-    {
-        $model = Antrianpasien::with(['poli','pasien'])->first();
-
-        $date = date('d m Y', strtotime($model['created_at']));
-
-        $dataPdf = [
-            'nama' => $model['pasien']['nama'],
-            'nikes' => $model['pasien']['nikes'],
-            'keluhan'   => $model['pasien']['keluhan'],
-            'nama_poli'    => $model['poli']['nama_poli'],
-            'waktu' => $date,
-            'no_antrian'   => $model['no_antrian']
-        ];
-
-
-        $pdf = PDF::loadView('pdf.antrianpasien.download-pdf-antrian', ['data' => $dataPdf]);
-
-        return $pdf->download('antrian-pasien.pdf');
-
-
-    }
-    
-    public function kios_pdf(Request $request)
-    {
-
-        $data = $request->all();
-
-
-        return view('pdf.antrianpasien.antrian-kios-pdf', compact('data'));
     }
 }

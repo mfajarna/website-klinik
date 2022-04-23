@@ -203,13 +203,13 @@
 
                            <li class="menu-title" data-key="t-menu">Pasien Menu</li>
                             <li>
-                                <a href="{{ route('menu.riwayat-kesehatan.index') }}">
+                                <a href="{{ route('menu.daftar-berobat.index') }}">
                                     <i data-feather="users"></i>
                                     <span data-key="t-calendar">Daftar Berobat</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('menu.absensi-dokter.index') }}">
+                                <a href="{{ route('menu.riwayat-berobat-pasien.index') }}">
                                     <i data-feather="users"></i>
                                     <span data-key="t-calendar">Riwayat Berobat</span>
                                 </a>

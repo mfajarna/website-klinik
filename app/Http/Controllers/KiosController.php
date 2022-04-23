@@ -6,12 +6,9 @@ use App\Models\Antrian_m;
 use App\Models\Antrianpasien;
 use App\Models\Keluhanpasien_m;
 use App\Models\Pasien_m;
-use App\Models\Poli_m;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class Pendaftaranpemeriksaan extends Controller
+class KiosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,12 +17,12 @@ class Pendaftaranpemeriksaan extends Controller
      */
     public function index()
     {
-
         $antrian_poli = Antrian_m::with('poli')
-                                    ->where('status', 'active')
-                                    ->latest()->get();
+        ->where('status', 'active')
+        ->latest()->get();
 
-        return view('pages.Dashboard.Pendaftaran.index', compact('antrian_poli'));
+
+        return view('pages.Landing.Kios.index', compact('antrian_poli'));
     }
 
     /**
@@ -46,55 +43,7 @@ class Pendaftaranpemeriksaan extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $request->validate([
-            'username' => 'required|string',
-            'email'     => 'required|string|unique:users,email',
-            'nama'  => 'required|string',
-            'nikes' => 'required|unique:tb_pasien,nikes',
-            'no_telp'   => 'required',
-            'alamat'    => 'required',
-            'umur'  => 'required',
-            'jenis_kelamin' => 'required',
-
-        ]);
-        
-        
-        $data = $request->all();
-
-        $createUser = new User();
-        $createUser->name = $validate['nama'];
-        $createUser->email = $validate['email'];
-        $createUser->username = $validate['username'];
-        $createUser->password = Hash::make('Pasien123');
-        $createUser->role = 'pasien';
-        $createUser->save();
-
-        $createPasien = new Pasien_m();
-        $createPasien->id_user = $createUser->id;
-        $createPasien->nama = $validate['nama'];
-        $createPasien->nikes = $validate['nikes'];
-        $createPasien->no_telp = $validate['no_telp'];
-        $createPasien->alamat = $validate['alamat'];
-        $createPasien->umur = $validate['umur'];
-        $createPasien->nama_orang_tua = $data['nama_orang_tua'];
-        $createPasien->jenis_kelamin = $validate['jenis_kelamin'];
-
-        $createPasien->save();
-
-        
-        if($createUser && $createPasien)
-        {
-            toast()->success('Berhasil membuat data pasien');       
-            
-            return redirect()->route('menu.pendaftaran.index');
-    
-        }else{
-            toast()->error('Gagal membuat data pasien');
-    
-            return redirect()->route('menu.pendaftaran.index');
-        }        
-
-        
+        //
     }
 
     /**
@@ -105,7 +54,7 @@ class Pendaftaranpemeriksaan extends Controller
      */
     public function show($id)
     {
-        return abort(404);
+        //
     }
 
     /**
@@ -116,7 +65,7 @@ class Pendaftaranpemeriksaan extends Controller
      */
     public function edit($id)
     {
-        return abort(404);
+        //
     }
 
     /**
@@ -128,7 +77,7 @@ class Pendaftaranpemeriksaan extends Controller
      */
     public function update(Request $request, $id)
     {
-        return abort(404);
+        //
     }
 
     /**
@@ -139,9 +88,8 @@ class Pendaftaranpemeriksaan extends Controller
      */
     public function destroy($id)
     {
-        return abort(404);
+        //
     }
-
 
     public function getPasien(Request $request)
     {
@@ -238,7 +186,7 @@ class Pendaftaranpemeriksaan extends Controller
             // auto-download pdf
             
 
-            return redirect()->route('pdf-antrian.index', ['data' => $dataPdf]);
+            return redirect()->route('pdf-antrian.kios', ['data' => $dataPdf]);
 
             
     
@@ -248,5 +196,4 @@ class Pendaftaranpemeriksaan extends Controller
             return redirect()->route('pendaftaran.index');
         }
     }
-
 }

@@ -2,25 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Antrian_m;
-use App\Models\Antrianpasien;
+use App\Models\Pasien_m;
+use App\Models\Pemeriksaanpasien_m;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
-class PdfAntrianController extends Controller
+class RiwayatBerobatController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
 
-        $data = $request->all();
+        $modelPasien = Pasien_m::where('id_user', Auth::user()->id)->first();
+        $id = $modelPasien->id;
+
+        $model = Pemeriksaanpasien_m::where('id_pasien', $id)->latest()->get();
 
 
-        return view('pdf.antrianpasien.antrian-pdf', compact('data'));
+        if(request()->ajax())
+        {
+            return DataTables::of($model)
+                    ->addColumn('render_tanggal', function($data){
+                          $tgl = $data->updated_at;
+
+                          $component = '<span class="badge rounded-pill badge-soft-success font-size-11">' . $tgl .   '</span>';
+                        
+                          return $component;
+                        })
+                    ->rawColumns(['render_tanggal'])
+                    ->make(true);
+        }
+
+        return view('pages.Dashboard.RiwayatBerobat.index');
     }
 
     /**
@@ -87,37 +105,5 @@ class PdfAntrianController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function exportPdf($id)
-    {
-        $model = Antrianpasien::with(['poli','pasien'])->first();
-
-        $date = date('d m Y', strtotime($model['created_at']));
-
-        $dataPdf = [
-            'nama' => $model['pasien']['nama'],
-            'nikes' => $model['pasien']['nikes'],
-            'keluhan'   => $model['pasien']['keluhan'],
-            'nama_poli'    => $model['poli']['nama_poli'],
-            'waktu' => $date,
-            'no_antrian'   => $model['no_antrian']
-        ];
-
-
-        $pdf = PDF::loadView('pdf.antrianpasien.download-pdf-antrian', ['data' => $dataPdf]);
-
-        return $pdf->download('antrian-pasien.pdf');
-
-
-    }
-    
-    public function kios_pdf(Request $request)
-    {
-
-        $data = $request->all();
-
-
-        return view('pdf.antrianpasien.antrian-kios-pdf', compact('data'));
     }
 }

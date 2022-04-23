@@ -91,7 +91,29 @@
 
             </div>
             <!-- end card -->
-        </div> 
+        </div>
+        
+        <div class="col-xl-6 col-sm-6">
+           <div class="card">
+               <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table id="table-view" class="table table-bordered dt-responsive nowrap w-100 dataTable no-footer dtr-inline collapsed" role="grid" aria-describedby="datatable_info" style="width: 1573px;">
+                            <thead>
+                                <input type="hidden" id="id_pasien" value="{{ $pasien['id'] }}" />
+                                <tr role="row">
+                                    <th class="text-center">Tgl</th>
+                                    <th class="text-center">Pemeriksaan</th>
+                                    <th class="text-center">Diagnosis</th>
+                                    <th class="text-center">Terapi</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+               </div>
+           </div>
+        </div>
     </div>
 
 
@@ -154,7 +176,56 @@
 @push('after-script')
 
     <script>
+        $(document).ready(function(){
 
+            getData();
+
+            function getData()
+            {
+                var id = $('#id_pasien').val();
+                var ts = $('#table-view').DataTable({
+                                processing: true,
+                                serverSide: true,
+                                "order": [
+                                        
+                                        [1, "ASC"],
+                                        [2, "ASC"]
+                                ],
+                                ajax: {
+                                        url: "{{ route('menu.riwayat-kesehatan.getriwayat') }}",
+                                        data: {id:id}
+                                },
+                                columnDefs: [
+                                        {targets:'_all', visible: true},
+                                        {
+                                                "targets": 0,
+                                                "class": "text-sm",
+                                                data: "render_tanggal",
+                                                name: "render_tanggal",
+                                        },
+                                        {
+                                                "targets": 1,
+                                                "class": "text-sm",
+                                                data: "pemeriksaan",
+                                                name: "pemeriksaan"
+                                        },
+                                        {
+                                                "targets": 2,
+                                                "class": "text-sm",
+                                                data: "diagnosis",
+                                                name: "diagnosis",
+                                        },
+                                        {
+                                                "targets": 3,
+                                                "class": "text-sm",
+                                                data: "terapi",
+                                                name: "terapi",
+                                                
+                                        },   
+                                ]
+                        })
+            }
+        })
     </script>
 
 @endpush

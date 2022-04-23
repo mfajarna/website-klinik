@@ -4,14 +4,17 @@ use App\Http\Controllers\AbsensiDokterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DaftarberobatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\DokterPoliController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\KiosController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PdfAntrianController;
 use App\Http\Controllers\Pendaftaranpemeriksaan;
 use App\Http\Controllers\PoliController;
+use App\Http\Controllers\RiwayatBerobatController;
 use App\Http\Controllers\RiwayatkesehatanController;
 use App\Http\Controllers\UploadKegiatanController;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +39,14 @@ Route::resource('/', IndexController::class);
 Route::get('auth-register', [LandingController::class, 'register']);
 
 Route::resource('pdf-antrian', PdfAntrianController::class);
+
 Route::get('/download-pdf-antrian/{id}', [PdfAntrianController::class, 'exportPdf']);
+Route::get('pdf-antrian-kios', [PdfAntrianController::class, 'kios_pdf'])->name('pdf-antrian.kios');
+
+// resource
+Route::resource('kios', KiosController::class);
+Route::get('get-pasien-kios', [KiosController::class, 'getPasien'])->name('kios.getpasienkios');
+Route::post('kios-pasien-baru', [KiosController::class, 'createPasienTerdaftar'])->name('kios.createpasienbaru');
 
 
 Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
@@ -89,6 +99,12 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         Route::resource('pendaftaran', Pendaftaranpemeriksaan::class);
         Route::get('/getPasien', [Pendaftaranpemeriksaan::class, 'getPasien'])->name('pendaftaran.getpasien');
         Route::post('/create-pasien-terdaftar', [Pendaftaranpemeriksaan::class, 'createPasienTerdaftar'])->name('pendaftaran.pasienbaru');
+   
+        // Daftar Berobat Pasien
+        Route::resource('daftar-berobat', DaftarberobatController::class);
+
+        // Riwayat Berobat Pasien
+        Route::resource('riwayat-berobat-pasien', RiwayatBerobatController::class);
     }
 
 );

@@ -22,10 +22,10 @@
         <div class="col-xl-12">
                                                
             <div class="nav nav-pills flex-column flex-sm-row nav-justified" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-shipping-tab" data-bs-toggle="pill" href="#v-pills-shipping" role="tab" aria-controls="v-pills-shipping" aria-selected="true">
+                {{-- <a class="nav-link active" id="v-pills-shipping-tab" data-bs-toggle="pill" href="#v-pills-shipping" role="tab" aria-controls="v-pills-shipping" aria-selected="true">
                     <i class= "bx bx-badge-check d-block check-nav-icon mt-4 mb-2"></i>
                     <p class="fw-bold mb-4">Pasien yang sudah terdaftar</p>
-                </a>
+                </a> --}}
                 <a class="nav-link" id="v-pills-payment-tab" data-bs-toggle="pill" href="#v-pills-payment" role="tab" aria-controls="v-pills-payment" aria-selected="false"> 
                     <i class= "bx bx-add-to-queue d-block check-nav-icon mt-4 mb-2"></i>
                     <p class="fw-bold mb-4">Buat pasien baru</p>
@@ -36,7 +36,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade show active" id="v-pills-shipping" role="tabpanel" aria-labelledby="v-pills-shipping-tab">
+                        <div class="tab-pane fade show" id="v-pills-shipping" role="tabpanel" aria-labelledby="v-pills-shipping-tab">
                             
 
                             <div class="row">
@@ -62,7 +62,7 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="v-pills-payment" role="tabpanel" aria-labelledby="v-pills-payment-tab">
+                        <div class="tab-pane fade show active" id="v-pills-payment" role="tabpanel" aria-labelledby="v-pills-payment-tab">
                             <div class="row">
                                 <div class="col-lg-12">
                                             <h4 class="card-title">Formulir Pendaftaran Pemeriksaan Klinik Citra Sehat</h4>
@@ -130,38 +130,22 @@
                                                                     <input type="number" class="form-control" name="umur" id="umur" placeholder="Masukan umur anda disini..." required>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                        
-                                                        <div class="mb-3">
-                                                            <label class="form-label" for="alamat">Alamat</label>
-                                                            <textarea class="form-control" name="alamat" id="alamat" placeholder="Masukan Alamat anda disini.." required></textarea>
-                                                        </div>
-                        
-                                                        <div class="mb-3">
-                                                            <label class="form-label" for="nama_orang_tua">Nama Orang Tua *opsional</label>
-                                                            <input type="text" class="form-control" name="nama_orang_tua" id="nama_orang_tua" placeholder="Masukan nama orang tua anda...">
-                                                        </div>
-                            
-                                                  
+                                                        </div>                                             
                                                 </div>
                         
                                                 <div class="col-lg-6">
                                                     <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i>Keluhan Pasien</h5>
                         
+                                                                       
                                                     <div class="mb-3">
-                                                        <label class="form-label" for="keluhan">Keluhan</label>
-                                                        <textarea class="form-control" name="keluhan" id="keluhan" placeholder="Masukan Keluhan anda disini.." required></textarea>
+                                                        <label class="form-label" for="alamat">Alamat</label>
+                                                        <textarea class="form-control" name="alamat" id="alamat" placeholder="Masukan Alamat anda disini.." required></textarea>
                                                     </div>
-                        
-                                                    <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i>Tujuan Poli</h5>
-                                                        <select class="form-select" name="tujuan_poli" id="tujuan_poli">
-                                                                @foreach ($antrian_poli as $key => $val )
-                                                                    <option value="{{ $val->id }}">{{ $val->poli->nama_poli }}</option>
-                        
-                                                                @endforeach
-                                                        </select>
-                        
-                                                        <p class="card-title-desc">*Hanya poli yang sudah buka yang tersedia</p>
+                    
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="nama_orang_tua">Nama Orang Tua *opsional</label>
+                                                        <input type="text" class="form-control" name="nama_orang_tua" id="nama_orang_tua" placeholder="Masukan nama orang tua anda...">
+                                                    </div>
                         
                                                         <div class="mt-4">
                                                             <button type="submit" id="onSubmit" class="btn btn-primary w-md">Daftar Periksa</button>
