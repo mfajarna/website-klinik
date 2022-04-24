@@ -19,12 +19,12 @@
                                 </a>
                             </li>
                             
-                            <li class="menu-title" data-key="t-apps">Admin Menu</li>
+                            <li class="menu-title" data-key="t-apps">Customer Service Menu</li>
 
                             <li>
                                 <a href="{{ route('menu.admin.index') }}">
                                     <i data-feather="user"></i>
-                                    <span data-key="t-ecommerce">Data Admin</span>
+                                    <span data-key="t-ecommerce">Data Customer Service</span>
                                 </a>
                             </li>
 
