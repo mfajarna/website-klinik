@@ -11,7 +11,8 @@
 <div class="row pt-md-5 p-4 d-flex justify-content-center">
 
     <div class="card">
-        <div class="card-header">
+        <img src="{{ asset('/assets/images/wallpaper.jpeg') }}" />
+        {{-- <div class="card-header">
             <h4 class="card-title">Antrian yang sedang berjalan!</h4>
             <div class="alert alert-warning alert-label-icon label-arrow fade show" role="alert">
                 <i class="mdi mdi-alert-outline align-middle me-3 label-icon"></i><strong>Notification</strong> - Mohon untuk melihat antrian poli yang sedang berjalan sebelum memesan no antrian!
@@ -85,7 +86,7 @@
             </div>
             @endforeach
             </div>
-        </div>
+        </div> --}}
     </div>
 
     </div>
