@@ -96,6 +96,7 @@ class KiosController extends Controller
         $nikes = $request->nikes;
         $id = $request->id;
 
+
         if($nikes)
         {
             $model = Pasien_m::where('nikes', $nikes)->first();

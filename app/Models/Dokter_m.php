@@ -79,8 +79,4 @@ class Dokter_m extends Authenticatable
     }
 
 
-
-
-
-
 }
