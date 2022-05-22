@@ -13,7 +13,7 @@
     @foreach ($count_antrian as $item)
     <div class="col-xl-3 col-md-6">
         <!-- card -->
-        <div class="card card-h-100">
+        {{-- <div class="card card-h-100">
             <!-- card body -->
             <div class="card-body">
 
@@ -46,7 +46,7 @@
 
 
             </div><!-- end card body -->
-        </div><!-- end card -->
+        </div><!-- end card --> --}}
     </div>
     @endforeach
             

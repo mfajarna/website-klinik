@@ -19,7 +19,8 @@ class Pemeriksaanpasien_m extends Model
         'id_dokter',
         'pemeriksaan',
         'diagnosis',
-        'terapi'
+        'terapi',
+        'catatan'
     ];
 
     protected $casts = [

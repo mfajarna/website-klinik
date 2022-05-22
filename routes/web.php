@@ -47,6 +47,7 @@ Route::get('pdf-antrian-kios', [PdfAntrianController::class, 'kios_pdf'])->name(
 Route::resource('kios', KiosController::class);
 Route::get('get-pasien-kios', [KiosController::class, 'getPasien'])->name('kios.getpasienkios');
 Route::post('kios-pasien-baru', [KiosController::class, 'createPasienTerdaftar'])->name('kios.createpasienbaru');
+Route::post('/autocomplete-search', [KiosController::class, 'autocompleteSearch'])->name('autocomplete.pasien');
 
 
 Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],

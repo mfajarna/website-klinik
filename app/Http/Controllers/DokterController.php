@@ -85,7 +85,10 @@ class DokterController extends Controller
             'nama_dokter'   => 'required|string',
             'email'  => 'required|email|unique:tb_dokter,email',
             'username'  => 'required|unique:users,username',
-            'bidang_keahlian'   => 'array'
+            'bidang_keahlian'   => 'array',
+            'no_hp' => 'required',
+            'alamat'    => 'required',
+            'tempat_tanggal_lahir' => 'required'
         ]);
 
 
@@ -109,7 +112,9 @@ class DokterController extends Controller
         $dataDokter->bidang_keahlian = $request->bidang_keahlian;
         $dataDokter->password = Hash::make('Dokter123');
         $dataDokter->role = 'dokter';
-
+        $dataDokter->no_hp = $validation['no_hp'];
+        $dataDokter->alamat = $validation['alamat'];
+        $dataDokter->tempat_tanggal_lahir = $validation['tempat_tanggal_lahir'];
         $dataDokter->save();
 
 
@@ -240,6 +245,7 @@ class DokterController extends Controller
             'pemeriksaan'   => 'required|string',
             'diagnosis' => 'required|string',
             'terapi'    => 'required|string',
+            'catatan'   => 'string'
         ]);
 
 
@@ -249,6 +255,7 @@ class DokterController extends Controller
         $pemeriksaan->pemeriksaan = $validate['pemeriksaan'];
         $pemeriksaan->diagnosis = $validate['diagnosis'];
         $pemeriksaan->terapi = $validate['terapi'];
+        $pemeriksaan->catatan = $validate['catatan'];
 
         $pemeriksaan->save();
 

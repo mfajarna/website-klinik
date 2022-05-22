@@ -95,18 +95,19 @@ class KiosController extends Controller
     {
         $nikes = $request->nikes;
         $id = $request->id;
+        $nama = $request->nama;
 
 
-        if($nikes)
-        {
-            $model = Pasien_m::where('nikes', $nikes)->first();
-        }
-        if($id)
-        {
-            $model = Pasien_m::where('id',$id)->first();
-        }
+        // if($nikes)
+        // {
+        //     $model = Pasien_m::where('nikes', $nikes)->first();
+        // }
+        // if($id)
+        // {
+        //     $model = Pasien_m::where('id',$id)->first();
+        // }
 
-        
+        $model = Pasien_m::where('nikes', $nikes)->orWhere('nama', $nikes)->first();
 
         return response()->json($model);
 
@@ -196,5 +197,27 @@ class KiosController extends Controller
     
             return redirect()->route('pendaftaran.index');
         }
+    }
+
+    public function autocompleteSearch(Request $request)
+    {
+        $search = $request->search;
+
+        if($search == ''){
+            $pasiens = Pasien_m::orderby('nikes','asc')->select('id','nikes')->limit(5)->get();
+         }else{
+            $pasiens = Pasien_m::orderby('nikes','asc')->select('id','nikes')->where('nikes', 'like', '%' .$search . '%')->limit(5)->get();
+         }
+
+         $response = array();
+
+         foreach($pasiens as $pasien){
+            $response[] = array(
+                "value"=>$pasien->nikes,
+                "label"=>$pasien->nikes,
+            );
+         }
+   
+         return response()->json($response);
     }
 }

@@ -51,7 +51,7 @@
                         alt="Header Avatar">       
                       
                     @if (Auth::user()->role == "admin")
-                    <span class="d-none d-xl-inline-block ms-1 fw-medium">Customer Service</span>
+                    <span class="d-none d-xl-inline-block ms-1 fw-medium">{{ Auth::user()->name }}</span>
                         
                     @else
                     <span class="d-none d-xl-inline-block ms-1 fw-medium">{{ Auth::user()->name }}</span>

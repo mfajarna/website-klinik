@@ -40,6 +40,9 @@
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Bidang Keahlian</th>
                                 <th class="text-center">Jadwal Kerja</th>
+                                <th class="text-center">No Hp</th>
+                                <th class="text-center">Alamat</th>
+                                <th class="text-center">Tempat,Tanggal Lahir</th>
                                 <th class="text-center">Aksi</th>
                         </thead>
 
@@ -100,6 +103,27 @@
                     },
                     {
                         "targets": 4,
+                        "class": "text-sm",
+                        data: "no_hp",
+                        name: "no_hp",
+                        orderable: false
+                    },
+                    {
+                        "targets": 5,
+                        "class": "text-sm",
+                        data: "alamat",
+                        name: "alamat",
+                        orderable: false
+                    },
+                    {
+                        "targets": 6,
+                        "class": "text-sm",
+                        data: "tempat_tanggal_lahir",
+                        name: "tempat_tanggal_lahir",
+                        orderable: false
+                    },
+                    {
+                        "targets": 7,
                         "class": "text-sm",
                         data: "action",
                         name: "action"

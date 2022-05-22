@@ -36,6 +36,22 @@
                             <input type="text" class="form-control" id="email" name="email" placeholder="Masukan email..." value="{{ old('email') }}" required>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label for="no_hp" class="col-form-label">Alamat</label>
+                            <textarea  class="form-control" id="alamat" name="alamat" placeholder="Masukan Alamat" required> </textarea>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label for="username" class="col-form-label">Tempat Tanggal Lahir:</label>
+                            <textarea  class="form-control" id="tempat tanggal lahir" name="tempat tanggal lahir" placeholder="Masukan tempat tanggal lahir" required> </textarea>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label for="no_hp" class="col-form-label">No Hp:</label>
+                            <input type="number" class="form-control" id="no_hp" name="no_hp" placeholder="Masukan no_hp..." value="{{ old('no_hp') }}" required>
+                        </div>
+                    </div>
 
                     <hr class="mt-2">
                     <div class="row">
