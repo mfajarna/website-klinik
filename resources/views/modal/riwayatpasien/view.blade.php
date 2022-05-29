@@ -82,6 +82,7 @@
                                                     <th class="text-center">Pemeriksaan</th>
                                                     <th class="text-center">Diagnosis</th>
                                                     <th class="text-center">Terapi</th>
+                                                    <th class="text-center">Catatan</th>
                                                 </tr>
                                             </thead>
                     

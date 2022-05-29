@@ -2,6 +2,10 @@
 
 @section('title', 'Pendaftaran KiosK')
 
+@push('after-style')
+    <link rel="stylesheet" type="text/css" href="{{asset('https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css')}}">
+@endpush
+
 
 @section('content')
 
@@ -11,8 +15,7 @@
 
         
         <div class="row">
-            <div class="col-xl-12">
-                                                   
+            <div class="col-xl-12">                         
                 <div class="nav nav-pills flex-column flex-sm-row nav-justified" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="v-pills-shipping-tab" data-bs-toggle="pill" href="#v-pills-shipping" role="tab" aria-controls="v-pills-shipping" aria-selected="true">
                         <i class= "bx bx-badge-check d-block check-nav-icon mt-4 mb-2"></i>
@@ -31,8 +34,8 @@
                                     <div class="col-lg-6">
                                         <h4 class="card-title">Formulir pasien klinik citra sehat yang telah terdaftar !</h4>
                                         <p class="card-title-desc">Mohon untuk memasukan kode nikes untuk melihat data yang telah terdaftar</p>
-                                        <label class="mt-2">Masukan kode nikes: </label>
-                                        <input type="number" data-pristine-required-message="Masukan kode nikes..." id="kode_nikes" class="form-control mb-3">
+                                        <label class="mt-2">Masukan kode nikes atau nama: </label>
+                                        <input type="text" data-pristine-required-message="Masukan kode nikes atau nama..." id="kode_nikes" class="form-control mb-3">
                                         
                                         <button type="button" id="btn_cari" class="btn btn-info waves-effect btn-label waves-light"><i class="bx bx-file-find label-icon mb-2"></i> Cari...</button>
                                     </div>
@@ -80,9 +83,35 @@
 
 
 @push('after-script')
-
+    <script src="{{asset('https://code.jquery.com/ui/1.13.0/jquery-ui.min.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
+
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $('#kode_nikes').autocomplete({
+                source: function( request, response ) {
+                // Fetch data
+                $.ajax({
+                    url:"{{route('autocomplete.pasien')}}",
+                    type: 'post',
+                    dataType: "json",
+                    data: {
+                    _token: CSRF_TOKEN,
+                    search: request.term
+                    },
+                    success: function( data ) {
+                    response( data );
+                    }
+                });
+                },
+                select: function (event, ui) {
+                // Set selection
+                $('#kode_nikes').val(ui.item.label); // display the selected text
+                return false;
+                }
+            })
+
+
             $('#btn_cari').click(function(){
                 var kode_nikes = $('#kode_nikes').val();
 

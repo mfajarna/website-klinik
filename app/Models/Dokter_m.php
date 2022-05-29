@@ -33,7 +33,10 @@ class Dokter_m extends Authenticatable
         'email',
         'password',
         'role',
-        'id_user'
+        'id_user',
+        'no_hp',
+        'alamat',
+        'tempat_tanggal_lahir'
      ];
 
 

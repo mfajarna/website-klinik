@@ -14,7 +14,6 @@
                             <li>
                                 <a href="{{ route('menu.dashboard.index') }}">
                                     <i data-feather="home"></i>
-                                    <span class="badge rounded-pill bg-soft-success text-success float-end">9+</span>
                                     <span data-key="t-dashboard">Dashboard</span>
                                 </a>
                             </li>

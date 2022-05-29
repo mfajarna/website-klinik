@@ -36,8 +36,10 @@
                                     <thead>
                                         <tr role="row">
                                             <th class="text-center">Nama Pasien</th>
-                                            <th class="text-center">Nikes</th>
+                                            <th class="text-center">No HP</th>
                                             <th class="text-center">Detail</th>
+                                            <th class="text-center">Alamat</th>
+                                            <th class="text-center">Email</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -76,8 +78,8 @@
                                         {
                                                 "targets": 1,
                                                 "class": "text-sm",
-                                                data: "nikes",
-                                                name: "nikes"
+                                                data: "no_telp",
+                                                name: "no_telp"
                                         },
                                         {
                                                 "targets": 2,
@@ -88,6 +90,18 @@
                                         },
                                         {
                                                 "targets": 3,
+                                                "class": "text-sm",
+                                                data: "alamat",
+                                                name: "alamat",
+                                        },
+                                        {
+                                                "targets": 4,
+                                                "class": "text-sm",
+                                                data: "user.email",
+                                                name: "user.email",
+                                        },
+                                        {
+                                                "targets": 5,
                                                 "class": "text-sm",
                                                 data: "action",
                                                 name: "action",
@@ -165,6 +179,13 @@
                                                 "class": "text-sm",
                                                 data: "terapi",
                                                 name: "terapi",
+                                                
+                                        },
+                                        {
+                                                "targets": 4,
+                                                "class": "text-sm",
+                                                data: "catatan",
+                                                name: "catatan",
                                                 
                                         },
                                         

@@ -152,6 +152,12 @@
                                 <label>Terapi</label>
                                 <textarea name="terapi" required placeholder="Masukan hasil terapi..." class="form-control"></textarea>
                             </div>
+
+                            <div class="form-group mb-3">
+                                <label>Catatan</label>
+                                <textarea name="catatan" required placeholder="Masukan catetan..." class="form-control"></textarea>
+                            </div>
+                        
                         </div>
 
                         <div class="col-lg-5">

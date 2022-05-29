@@ -18,7 +18,7 @@ class RiwayatkesehatanController extends Controller
     public function index()
     {
 
-        $model = Pasien_m::with(['pemeriksaan'])
+        $model = Pasien_m::with(['pemeriksaan','user'])
                                     ->latest()
                                     ->get();
 

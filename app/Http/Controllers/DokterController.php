@@ -85,7 +85,10 @@ class DokterController extends Controller
             'nama_dokter'   => 'required|string',
             'email'  => 'required|email|unique:tb_dokter,email',
             'username'  => 'required|unique:users,username',
-            'bidang_keahlian'   => 'array'
+            'bidang_keahlian'   => 'array',
+            'no_hp' => 'required',
+            'alamat'    => 'required',
+            'tempat_tanggal_lahir' => 'required'
         ]);
 
 
@@ -109,7 +112,9 @@ class DokterController extends Controller
         $dataDokter->bidang_keahlian = $request->bidang_keahlian;
         $dataDokter->password = Hash::make('Dokter123');
         $dataDokter->role = 'dokter';
-
+        $dataDokter->no_hp = $validation['no_hp'];
+        $dataDokter->alamat = $validation['alamat'];
+        $dataDokter->tempat_tanggal_lahir = $validation['tempat_tanggal_lahir'];
         $dataDokter->save();
 
 
@@ -170,7 +175,7 @@ class DokterController extends Controller
      */
     public function edit($id)
     {
-        $model = Dokter_m::findOrFail($id);
+        $model = Dokter_m::with('user')->where('id', $id)->first();
         
 
         return view('pages.Dashboard.Dokter.update', compact('model'));
@@ -186,6 +191,34 @@ class DokterController extends Controller
     public function update(Request $request, $id)
     {
         $model = Dokter_m::findOrFail($id);
+        $id_user = $model->id_user;
+        $data = $request->all();
+
+        $model->nama_dokter = $data['nama_dokter'];
+        $model->email= $data['email'];
+        $model->no_hp = $data['no_hp'];
+        $model->alamat = $data['alamat'];
+        $model->tempat_tanggal_lahir = $data['tempat_tanggal_lahir'];
+        $model->update();
+    
+
+        $model_user = User::findOrFail($id_user);
+        $model_user->name = $data['nama_dokter'];
+        $model_user->email = $data['email'];
+        $model_user->username = $data['username'];
+        $model_user->update();
+
+        if($model && $model_user)
+        {
+            toast()->success('Berhasil update data dokter');
+
+            return redirect()->route('menu.dokter.index');
+        }else{
+            toast()->error('Gagal update data dokter');
+
+            return redirect()->route('menu.dokter.index');
+        }
+
         
     }
 
@@ -244,6 +277,7 @@ class DokterController extends Controller
             'pemeriksaan'   => 'required|string',
             'diagnosis' => 'required|string',
             'terapi'    => 'required|string',
+            'catatan'   => 'string'
         ]);
 
 
@@ -253,6 +287,7 @@ class DokterController extends Controller
         $pemeriksaan->pemeriksaan = $validate['pemeriksaan'];
         $pemeriksaan->diagnosis = $validate['diagnosis'];
         $pemeriksaan->terapi = $validate['terapi'];
+        $pemeriksaan->catatan = $validate['catatan'];
 
         $pemeriksaan->save();
 
