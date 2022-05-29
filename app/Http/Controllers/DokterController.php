@@ -49,7 +49,7 @@ class DokterController extends Controller
                                                     <i class="bx bx-edit-alt label-icon"></i>
                                 </button>';
                     $button .=  '<div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
-                                                    <a class="dropdown-item" id="btn_active" href="#">Update Data</a>
+                                                    <a class="dropdown-item" id="btn_active" href="/menu/dokter/'.$data->id.'/edit">Update Data</a>
                                                     <a class="dropdown-item" id="btn_non_active" href="#">Hapus Data</a>
                                 </div>';
 
@@ -170,7 +170,10 @@ class DokterController extends Controller
      */
     public function edit($id)
     {
-        return abort(404);
+        $model = Dokter_m::findOrFail($id);
+        
+
+        return view('pages.Dashboard.Dokter.update', compact('model'));
     }
 
     /**
@@ -182,7 +185,8 @@ class DokterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return abort(404);
+        $model = Dokter_m::findOrFail($id);
+        
     }
 
     /**
@@ -326,5 +330,26 @@ class DokterController extends Controller
         // return view('pdf.pemeriksaan.pemeriksaan-pdf',['data' => $data]);
 
 
+    }
+
+    public function getAllDokter()
+    {
+        $model = Dokter_m::all();
+        
+
+        if(request()->ajax())
+        {
+            return DataTables::of($model)
+                ->addColumn('jadwal_kerja', function($data){
+                    $button = '<div class="col-xl-6">';
+                    $button .= '<button type="button" id="btn_jadwal" class="btn btn-info waves-effect btn-label waves-light"><i class="  bx bx-check-circle label-icon"></i>Lihat Jadwal Kerja</button>';
+                    $button .= '</div>';
+
+                    return $button;
+                })
+                ->make(true);
+        }
+
+        return view('pages.Dashboard.Dokter.dokter');
     }
 }

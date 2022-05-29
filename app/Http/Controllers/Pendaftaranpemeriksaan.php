@@ -10,6 +10,7 @@ use App\Models\Poli_m;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\Facades\DataTables;
 
 class Pendaftaranpemeriksaan extends Controller
 {
@@ -249,4 +250,15 @@ class Pendaftaranpemeriksaan extends Controller
         }
     }
 
+    public function dataPasien()
+    {
+        $model = Pasien_m::with('user')->get();
+
+        if(request()->ajax())
+        {
+            return DataTables::of($model)->make(true);
+        }
+
+        return view('pages.Dashboard.Pendaftaran.pasien');
+    }
 }

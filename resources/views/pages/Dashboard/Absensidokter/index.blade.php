@@ -94,6 +94,32 @@
 
         @endif
 
+        @if (Auth::user()->role == "admin")
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Log Absensi Dokter</h4>
+                </div>
+                <div class="card-body">
+    
+                </button>
+                <div>
+                    <table id="table-data-dokter" class="table table-bordered dt-responsive nowrap w-100 dataTable no-footer dtr-inline collapsed" role="grid" aria-describedby="datatable_info" style="width: 1573px;">
+                        <thead>
+                            <tr role="row">
+                                <th class="text-center">Nama Dokter</th>
+                                <th class="text-center">Tanggal</th>
+                                <th class="text-center">Clock In</th>
+                                <th class="text-center">Clock Out</th>
+                        </thead>
+
+                    </table>
+                </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
 
 
     </div>

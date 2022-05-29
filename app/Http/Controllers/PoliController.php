@@ -30,6 +30,7 @@ class PoliController extends Controller
                                 $button = "<div class='d-flex gap-3 align-center'>";
 
                                 $button .= "<a href='/menu/remove-poli?id=". $tipe->id ."' name='delete' id='" . $tipe->id ."' class='button text-danger'><i class='mdi mdi-delete font-size-18'></i></a>";
+                                $button .= "<a href='/menu/poli/". $tipe->id ."/edit/' name='update' id='" . $tipe->id ."' class='button text-primary'><i class='mdi mdi-pen font-size-18'></i></a>";
 
                                 $button .= "</div>";
 
@@ -135,7 +136,10 @@ class PoliController extends Controller
      */
     public function edit($id)
     {
-        //
+        $model = Poli_m::findOrFail($id);
+
+
+        return view('pages.Dashboard.Poli.update', compact('model'));
     }
 
     /**
@@ -147,7 +151,22 @@ class PoliController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $model = Poli_m::findOrFail($id);
+        $model->nama_poli = $data['nama_poli'];
+        $model->desc_poli = $data['desc_poli'];
+        $model->update();
+
+        if($model)
+        {
+            toast()->success('Berhasil Update Data Poli');
+            return redirect()->route('menu.poli.index');
+        }else{
+            toast()->error('Gagal Update Data Poli');
+            return redirect()->route('menu.poli.index');
+        }
+
     }
 
     /**

@@ -73,6 +73,7 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         Route::post('pemeriksaan-create', [DokterController::class, 'createPemeriksaan'])->name('dokter.pemeriksaan.create');
         Route::get('pemeriksaan-view', [DokterController::class, 'viewPdf'])->name('dokter.pemeriksaan.view-pdf');
         Route::get('pemeriksaan-download-pdf', [DokterController::class, 'printPdf'])->name('dokter.pemeriksaan.download-pdf');
+        Route::get('dokterpage', [DokterController::class, 'getAllDokter'])->name('dokter.alldokter');
 
         // Route Dokter Poli
         Route::resource('dokter-poli', DokterPoliController::class);
@@ -99,7 +100,8 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         Route::resource('pendaftaran', Pendaftaranpemeriksaan::class);
         Route::get('/getPasien', [Pendaftaranpemeriksaan::class, 'getPasien'])->name('pendaftaran.getpasien');
         Route::post('/create-pasien-terdaftar', [Pendaftaranpemeriksaan::class, 'createPasienTerdaftar'])->name('pendaftaran.pasienbaru');
-   
+        Route::get('pasien/allpasien', [Pendaftaranpemeriksaan::class, 'dataPasien'])->name('pendaftaran.allpasien');
+        
         // Daftar Berobat Pasien
         Route::resource('daftar-berobat', DaftarberobatController::class);
 
