@@ -105,6 +105,7 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         
         // Daftar Berobat Pasien
         Route::resource('daftar-berobat', DaftarberobatController::class);
+        Route::get('pasien/berobatpage', [DaftarberobatController::class,'daftarBerobat']);
 
         // Riwayat Berobat Pasien
         Route::resource('riwayat-berobat-pasien', RiwayatBerobatController::class);

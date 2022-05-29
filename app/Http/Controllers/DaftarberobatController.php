@@ -17,15 +17,27 @@ class DaftarberobatController extends Controller
      */
     public function index()
     {
-        $model = Pasien_m::where('id_user', Auth::user()->id)->first();
 
+        $antrian = Antrian_m::with('poli')->latest()->get();
+
+        return view('pages.Dashboard.DaftarBerobat.cekpoli', compact('antrian'));
+
+
+    }
+
+    public function daftarBerobat(Request $request)
+    {
+        $id_antrian_poli = $request->id;
+
+        
+        $model = Pasien_m::where('id_user', Auth::user()->id)->first();
         $nikes = $model['nikes'];
 
         $antrian_poli = Antrian_m::with('poli')
-                        ->where('status', 'active')
-                        ->latest()->get();
+                        ->where('id', $id_antrian_poli)
+                        ->first();
 
-        return view('pages.Dashboard.DaftarBerobat.index', compact('antrian_poli', 'nikes'));
+        return view('pages.Dashboard.DaftarBerobat.index', compact('antrian_poli', 'nikes', 'id_antrian_poli'));
     }
 
     /**

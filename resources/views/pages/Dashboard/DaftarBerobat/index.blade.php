@@ -76,10 +76,8 @@
                     
                                             <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i>Tujuan Poli</h5>
                                             <select class="form-select" name="tujuan_poli" id="tujuan_poli">
-                                                    @foreach ($antrian_poli as $key => $val )
-                                                        <option value="{{ $val->id }}">{{ $val->poli->nama_poli }}</option>
+                                                        <option value="{{ $antrian_poli->id }}">{{ $antrian_poli->poli->nama_poli }}</option>
                     
-                                                    @endforeach
                                             </select>
                     
                                             <p class="card-title-desc">*Hanya poli yang sudah buka yang tersedia</p>
