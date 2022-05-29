@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Antrian_m;
 use App\Models\Antrianpasien;
 use App\Models\Dokter_m;
+use App\Models\Dokterpoli_m;
 use App\Models\Jadwalkerjadokter_m;
 use App\Models\Keluhanpasien_m;
 use App\Models\Pasien_m;
@@ -50,7 +51,7 @@ class DokterController extends Controller
                                 </button>';
                     $button .=  '<div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
                                                     <a class="dropdown-item" id="btn_active" href="/menu/dokter/'.$data->id.'/edit">Update Data</a>
-                                                    <a class="dropdown-item" id="btn_non_active" href="#">Hapus Data</a>
+                                                    <a class="dropdown-item" id="btn_non_active" href="/menu/delete-dokter?id='.$data->id.'">Hapus Data</a>
                                 </div>';
 
                     return $button;
@@ -386,5 +387,33 @@ class DokterController extends Controller
         }
 
         return view('pages.Dashboard.Dokter.dokter');
+    }
+
+    public function deleteDokter(Request $request)
+    {
+        $id = $request->id;
+
+        $modelDokter = Dokter_m::findOrFail($id);
+        $modelDokter->delete();
+
+        $modelUser = User::where('id', $modelDokter->id_user)->first();
+        $modelUser->delete();
+
+        $modelJadwalKerja = Jadwalkerjadokter_m::where('id_dokter', $modelUser->id);
+        $modelJadwalKerja->delete();
+
+        $modelDokterPoli = Dokterpoli_m::where('id_dokter', $modelUser->id);
+        $modelDokterPoli->delete();
+
+        if($modelDokter && $modelUser && $modelJadwalKerja && $modelDokterPoli)
+        {
+            toast()->success('Berhasil Hapus data dokter');
+
+            return redirect()->route('menu.dokter.index');
+        }else{
+            toast()->error('Gagal Hapus data dokter');
+
+            return redirect()->route('menu.dokter.index');
+        }
     }
 }

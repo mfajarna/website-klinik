@@ -75,6 +75,7 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         Route::get('pemeriksaan-view', [DokterController::class, 'viewPdf'])->name('dokter.pemeriksaan.view-pdf');
         Route::get('pemeriksaan-download-pdf', [DokterController::class, 'printPdf'])->name('dokter.pemeriksaan.download-pdf');
         Route::get('dokterpage', [DokterController::class, 'getAllDokter'])->name('dokter.alldokter');
+        Route::get('delete-dokter', [DokterController::class, 'deleteDokter']);
 
         // Route Dokter Poli
         Route::resource('dokter-poli', DokterPoliController::class);
