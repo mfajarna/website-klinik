@@ -20,7 +20,7 @@
             <div class="pace-progress-inner"></div>
           </div>
         <div class="pace-activity"></div></div>
-
+          
         <div class="layout-wrapper">
             <header id="page-topbar">
                 <div class="navbar-header">
@@ -106,11 +106,14 @@
                     </nav>
                 </div>
             </div>
+            
 
             @include('sweetalert::alert')
-
+            <img src="{{ asset('/assets/images/wallpaper.jpeg') }}" width="100%" />
             <div class="main-content">
+                
                 <div class="page-content">
+                    
                     <div class="container-fluid">
                         @yield('content')
                     </div>

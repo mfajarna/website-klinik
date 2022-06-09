@@ -248,12 +248,12 @@ class DokterController extends Controller
         }
     }
 
-    public function pemeriksaanPasien(Request $request, $id)
+    public function pemeriksaanPasien(Request $request, $id, $idantrian)
     {
 
         $pasien = Pasien_m::findOrFail($id);
 
-        
+    
 
         $time = Carbon::now();
         $now = $time->toDateString();
@@ -266,7 +266,7 @@ class DokterController extends Controller
 
     
 
-        return view('pages.Dashboard.Dokter.pemeriksaan', compact('pasien', 'keluhan', 'id_pasien'));
+        return view('pages.Dashboard.Dokter.pemeriksaan', compact('pasien', 'keluhan', 'id_pasien', 'idantrian'));
     }
 
     public function createPemeriksaan(Request $request)
@@ -278,7 +278,8 @@ class DokterController extends Controller
             'pemeriksaan'   => 'required|string',
             'diagnosis' => 'required|string',
             'terapi'    => 'required|string',
-            'catatan'   => 'string'
+            'catatan'   => 'string',
+            'idantrian' => 'required'
         ]);
 
 
@@ -292,10 +293,12 @@ class DokterController extends Controller
 
         $pemeriksaan->save();
 
-        $antrian = Antrianpasien::findOrFail($validate['id_antrian']);
+        $antrian = Antrianpasien::findOrFail($validate['idantrian']);
+
+      
 
         $antrian->status = "Selesai";
-        $antrian->save();
+        $antrian->update();
 
 
         if($pemeriksaan && $antrian)

@@ -50,18 +50,19 @@
                             </li>
 
                            <li class="menu-title" data-key="t-menu">Dokter Menu</li>
+                           <li>
+                            <a href="{{ route('menu.absensi-dokter.index') }}">
+                                <i data-feather="users"></i>
+                                <span data-key="t-calendar">Absensi Dokter</span>
+                            </a>
+                            </li>
                             <li>
                                 <a href="{{ route('menu.riwayat-kesehatan.index') }}">
                                     <i data-feather="users"></i>
                                     <span data-key="t-calendar">Riwayat Kesehatan Pasien</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="{{ route('menu.absensi-dokter.index') }}">
-                                    <i data-feather="users"></i>
-                                    <span data-key="t-calendar">Absensi Dokter</span>
-                                </a>
-                            </li>
+
                         </ul>
                     </div>
                     <!-- Sidebar -->
@@ -90,18 +91,19 @@
                         
 
                            <li class="menu-title" data-key="t-menu">Dokter Menu</li>
+                           <li>
+                            <a href="{{ route('menu.absensi-dokter.index') }}">
+                                <i data-feather="users"></i>
+                                <span data-key="t-calendar">Absensi Dokter</span>
+                            </a>
+                        </li>
                             <li>
                                 <a href="{{ route('menu.riwayat-kesehatan.index') }}">
                                     <i data-feather="users"></i>
                                     <span data-key="t-calendar">Riwayat Kesehatan Pasien</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="{{ route('menu.absensi-dokter.index') }}">
-                                    <i data-feather="users"></i>
-                                    <span data-key="t-calendar">Absensi Dokter</span>
-                                </a>
-                            </li>
+
                         </ul>
                     </div>
                     <!-- Sidebar -->

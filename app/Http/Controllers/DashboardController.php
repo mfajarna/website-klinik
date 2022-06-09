@@ -29,6 +29,7 @@ class DashboardController extends Controller
 
         $now = Carbon::now();
         $time = $now->toDateString();
+    
 
         $getPoli = Poli_m::where('is_active', 1)->get();
         $antrian_dokter = Dokterpoli_m::where('id_dokter', $id)->get();

@@ -70,7 +70,7 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         // Route Dokter
         Route::resource('dokter', DokterController::class);
         Route::get('view-jadwal', [DokterController::class, 'lihatJadwalKerja'])->name('dokter.view-jadwal');
-        Route::get('pemeriksaan-pasien/{id}', [DokterController::class, 'pemeriksaanPasien'])->name('dokter.pemeriksaanpasien');
+        Route::get('pemeriksaan-pasien/{id}/{idantrian}', [DokterController::class, 'pemeriksaanPasien'])->name('dokter.pemeriksaanpasien');
         Route::post('pemeriksaan-create', [DokterController::class, 'createPemeriksaan'])->name('dokter.pemeriksaan.create');
         Route::get('pemeriksaan-view', [DokterController::class, 'viewPdf'])->name('dokter.pemeriksaan.view-pdf');
         Route::get('pemeriksaan-download-pdf', [DokterController::class, 'printPdf'])->name('dokter.pemeriksaan.download-pdf');

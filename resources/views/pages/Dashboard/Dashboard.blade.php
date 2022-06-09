@@ -148,7 +148,7 @@
 
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-success text-truncate"><i class="uil uil-user me-1"></i>Selesai Periksa</button>
-                        <a href="{{ route('menu.dokter.pemeriksaanpasien', ['id' => $item['id_pasien']]) }}" class="btn btn-outline-primary text-truncate"><i class="uil uil-envelope-alt me-1"></i>Mulai Periksa</a>
+                        <a href="{{ route('menu.dokter.pemeriksaanpasien', ['id' => $item['id_pasien'], 'idantrian' => $item['id']]) }}" class="btn btn-outline-primary text-truncate"><i class="uil uil-envelope-alt me-1"></i>Mulai Periksa</a>
                     </div>
                 </div>
                 <!-- end card -->
@@ -198,29 +198,33 @@
 
             var text = "Antrian nomor " + next_antrian +" pada " + nama_poli + " harap segera memasuki ruangan periksa"
             text = text.trim();
-             $.ajax({
-                    method: "POST",
-                    url: url,
-                    contentType: "application/json",
-                    data: JSON.stringify({
-                        input:{
-                            ssml : text
-                        },
-                        voice:{
-                            "languageCode": "id-ID",
-                            "name": "id-ID-Wavenet-D"
-                        },
-                        "audioConfig": {
-                            "audioEncoding": "LINEAR16",
-                            "pitch": 0,
-                            "speakingRate": 0.8
-                        },
-                    }),
-                    dataType: "json"
-                }).then(function (data){
-                    $('audio').attr('src', "data:audio/mpeg;base64," + data.audioContent).get(0).play()
+
+            location.reload();
+            //  $.ajax({
+            //         method: "POST",
+            //         url: url,
+            //         contentType: "application/json",
+            //         data: JSON.stringify({
+            //             input:{
+            //                 ssml : text
+            //             },
+            //             voice:{
+            //                 "languageCode": "id-ID",
+            //                 "name": "id-ID-Wavenet-D"
+            //             },
+            //             "audioConfig": {
+            //                 "audioEncoding": "LINEAR16",
+            //                 "pitch": 0,
+            //                 "speakingRate": 0.8
+            //             },
+            //         }),
+            //         dataType: "json"
+            //     }).then(function (data){
                     
-                })
+            //      $('audio').attr('src', "data:audio/mpeg;base64," + data.audioContent).get(0).play()
+
+               
+            //     })
 
         }
     </script>

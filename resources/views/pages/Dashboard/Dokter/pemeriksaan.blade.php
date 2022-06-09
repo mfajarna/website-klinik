@@ -132,6 +132,7 @@
                     <input type="hidden" name="id_pasien" value="{{ $pasien['id'] }}">
                     <input type="hidden" name="id_dokter" value="{{ Auth::user()->id }}">
                     <input type="hidden" name="id_antrian" value="{{ $id_pasien }}">
+                    <input type="hidden" name="idantrian" value="{{ $idantrian }}">
 
 
                     <div class="row">

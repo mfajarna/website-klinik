@@ -3,17 +3,9 @@
 @section('title', 'Landing Page')
 
 
+
 @section('content')
 
-
-<img src="{{ asset('/assets/images/wallpaper.jpeg') }}" />
-
-<div class="col-xxl-12 col-lg-12 col-md-12">
-
-<div class="row pt-md-5 p-4 d-flex justify-content-center">
-
-    </div>
-</div>
 
 
     <div class="card">

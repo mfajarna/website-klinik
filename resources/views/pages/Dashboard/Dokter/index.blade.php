@@ -24,7 +24,6 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">Manajemen Dokter</h4>
-               
             </div>
             <div class="card-body">
 
