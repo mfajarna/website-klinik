@@ -198,33 +198,31 @@
 
             var text = "Antrian nomor " + next_antrian +" pada " + nama_poli + " harap segera memasuki ruangan periksa"
             text = text.trim();
-
-            location.reload();
-            //  $.ajax({
-            //         method: "POST",
-            //         url: url,
-            //         contentType: "application/json",
-            //         data: JSON.stringify({
-            //             input:{
-            //                 ssml : text
-            //             },
-            //             voice:{
-            //                 "languageCode": "id-ID",
-            //                 "name": "id-ID-Wavenet-D"
-            //             },
-            //             "audioConfig": {
-            //                 "audioEncoding": "LINEAR16",
-            //                 "pitch": 0,
-            //                 "speakingRate": 0.8
-            //             },
-            //         }),
-            //         dataType: "json"
-            //     }).then(function (data){
+             $.ajax({
+                    method: "POST",
+                    url: url,
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        input:{
+                            ssml : text
+                        },
+                        voice:{
+                            "languageCode": "id-ID",
+                            "name": "id-ID-Wavenet-D"
+                        },
+                        "audioConfig": {
+                            "audioEncoding": "LINEAR16",
+                            "pitch": 0,
+                            "speakingRate": 0.8
+                        },
+                    }),
+                    dataType: "json"
+                }).then(function (data){
                     
-            //      $('audio').attr('src', "data:audio/mpeg;base64," + data.audioContent).get(0).play()
+                 $('audio').attr('src', "data:audio/mpeg;base64," + data.audioContent).get(0).play()
 
                
-            //     })
+                })
 
         }
     </script>
