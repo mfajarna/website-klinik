@@ -379,13 +379,6 @@ class DokterController extends Controller
         if(request()->ajax())
         {
             return DataTables::of($model)
-                ->addColumn('jadwal_kerja', function($data){
-                    $button = '<div class="col-xl-6">';
-                    $button .= '<button type="button" id="btn_jadwal" class="btn btn-info waves-effect btn-label waves-light"><i class="  bx bx-check-circle label-icon"></i>Lihat Jadwal Kerja</button>';
-                    $button .= '</div>';
-
-                    return $button;
-                })
                 ->make(true);
         }
 

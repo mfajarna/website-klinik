@@ -79,6 +79,9 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
 
         // Route Dokter Poli
         Route::resource('dokter-poli', DokterPoliController::class);
+            Route::get('show-edit/{id}', [DokterPoliController::class, 'editView']);
+            Route::put('edit-dokter-poli/{id}', [DokterPoliController::class, 'actionEdit']);
+            Route::get('delete-dokter-poli/{id}', [DokterPoliController::class, 'actionDelete']);
 
         // Route Riwayat Kesehatan Dokter
         Route::resource('riwayat-kesehatan', RiwayatkesehatanController::class);

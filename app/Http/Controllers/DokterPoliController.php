@@ -35,8 +35,8 @@ class DokterPoliController extends Controller
                                                             <i class="bx bx-edit-alt label-icon"></i>
                                         </button>';
                             $button .=  '<div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
-                                                            <a class="dropdown-item" id="btn_active" href="#">Update Data</a>
-                                                            <a class="dropdown-item" id="btn_non_active" href="#">Hapus Data</a>
+                                                            <a class="dropdown-item" id="btn_active" href="show-edit/'.$data->id.'">Update Data</a>
+                                                            <a class="dropdown-item" id="btn_non_active" href="delete-dokter-poli/'.$data->id.'">Hapus Data</a>
                                         </div>';
         
                             return $button;
@@ -102,7 +102,7 @@ class DokterPoliController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -113,7 +113,7 @@ class DokterPoliController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -137,5 +137,51 @@ class DokterPoliController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function editView($id)
+    {
+        $model = Dokterpoli_m::with('dokter','poli')->findOrFail($id);
+        $poli = Poli_m::latest()->get();
+
+        return view('pages.Dashboard.DokterPoli.show-update',compact('model', 'poli'));
+    }
+
+    public function actionEdit(Request $request, $id)
+    {
+        $data = $request->all();
+        $model = Dokterpoli_m::findOrFail($id);
+
+        $model->id_dokter = $request->id_dokter;
+        $model->id_poli = $request->id_poli;
+        $model->update();
+
+        if($model)
+        {
+            toast()->success('Berhasil update data dokter poli');
+    
+            return redirect()->route('menu.dokter-poli.index');
+        }else{
+            toast()->error('Gagal update data dokter poli');
+    
+            return redirect()->route('menu.dokter-poli.index');
+        }
+    }
+
+    public function actionDelete($id)
+    {
+        $model = Dokterpoli_m::findOrFail($id);
+
+        $model->delete();
+        if($model)
+        {
+            toast()->success('Berhasil Hapus data dokter poli');
+    
+            return redirect()->route('menu.dokter-poli.index');
+        }else{
+            toast()->error('Gagal Hapus data dokter poli');
+    
+            return redirect()->route('menu.dokter-poli.index');
+        }
     }
 }

@@ -32,7 +32,7 @@
                                 <th class="text-center">Nama Dokter</th>
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Bidang Keahlian</th>
-                                <th class="text-center">Jadwal Kerja</th>
+               
                         </thead>
 
                     </table>
@@ -57,7 +57,7 @@
                 [0, "ASC"],
                 [1, "ASC"],
                 [2, "ASC"],
-                [3, "ASC"]
+ 
             ],
             ajax:{
                 url: "{{ route('menu.dokter.index') }}"
@@ -81,13 +81,6 @@
                     "class": "text-sm",
                     data: "bidang_keahlian",
                     name: "bidang_keahlian"
-                },
-                {
-                    "targets": 3,
-                    "class": "text-sm",
-                    data: "jadwal_kerja",
-                    name: "jadwal_kerja",
-                    orderable: false
                 },
 
 
