@@ -57,6 +57,8 @@
 
         <script>
                 $(document).ready(function(){
+                        	
+                        $.fn.dataTable.ext.errMode = 'none';
                         var t = $('#table-data').DataTable({
                                 processing: true,
                                 serverSide: true,
@@ -118,7 +120,7 @@
                                 if($($tr).hasClass('child'))
                                 {
                                         $tr = $tr.prev('.parent')
-                                     }
+                                }
                                 
                                 var data = t.row($tr).data();
                                 var id = data.id;

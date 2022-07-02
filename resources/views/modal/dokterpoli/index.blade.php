@@ -33,7 +33,6 @@
             <button type="submit" name="submit" class="btn btn-success waves-effect waves-light">Simpan</button>
 
             </form>
-            <button type="button" class="btn btn-link text-gray text-gradient px-4 mb-0 mt-2 close-modal" onClick="closeModal()" data-dismiss="modal">Close</button>
             
         </div>
         </div>

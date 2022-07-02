@@ -21,6 +21,7 @@ class AbsensiDokterController extends Controller
         $id = Auth::user()->id;
         $model = Absensidokter_m::with('user')->where('id_dokter', $id)->latest()->get();
 
+
         if(request()->ajax())
         {
             return DataTables::of($model)->make(true);

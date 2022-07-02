@@ -44,7 +44,7 @@
                     
                     <label for="desc_poli" class="col-form-label">Nama Poli:</label>
                     <select class="form-select" name="id_poli">
-                        <option value="{{ $model->id_id_poli }}">{{ $model->poli->nama_poli }}</option>
+                        <option value="{{ $model->id_poli }}">{{ $model->poli->nama_poli }}</option>
                         @foreach ($poli as $key => $val )
                             <option value="{{ $val->id }}">{{ $val->nama_poli }}</option>
                         @endforeach 

@@ -34,7 +34,7 @@ class RiwayatkesehatanController extends Controller
                         ->addColumn('action', function($tipe){
                             $button = '<a href="/menu/print-pdf-kesehatan?id='. $tipe->id .'" class="btn btn-light waves-effect waves-light w-sm">
                                             <i class="mdi mdi-upload d-block font-size-16"></i> Download PDF
-                                        </a>';
+                                       </a>';
 
                             return $button;
                         })
@@ -137,11 +137,13 @@ class RiwayatkesehatanController extends Controller
     {
         $id = $request->id;
 
+        
+        $pasien = Pasien_m::findOrFail($id);
         $model = Pemeriksaanpasien_m::with('pasien')->where('id_pasien', $id)->latest()->get();
 
-        $a = 'A';
 
-        $pdf = PDF::loadView('pdf.riwayatpasien.riwayatpasien-pdf', ['data' => $model]);
+        $pdf = PDF::loadView('pdf.riwayatpasien.riwayatpasien-pdf', ['data' => $model, 'pasien'    => $pasien,]);
+
 
         return $pdf->download('riwayat-pasien.pdf');
 
