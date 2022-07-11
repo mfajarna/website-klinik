@@ -309,7 +309,7 @@
 
         async function onNotification(nama_poli, next_antrian)
         {
-            
+            var timer = 8000;
             var API_KEY = "AIzaSyAsSMBUXQEKQA7LWXRx2MTQkMz84IP2VIQ";
             var url = "https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=" + API_KEY;
 
@@ -339,6 +339,10 @@
                     dataType: "json"
                 }).then(function (data){
                     $('audio').attr('src', "data:audio/mpeg;base64," + data.audioContent).get(0).play()
+                
+                    setTimeout(() => {
+                        location.reload()
+                    }, timer);
                 })
 
         }

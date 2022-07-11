@@ -24,7 +24,7 @@
                     </div>
 
 
-                    <div class="card-body">
+                    <div class="card-body" id="antrian">
                         <div class="row">
                             @foreach ($antrian as $antrians )
             
@@ -101,6 +101,29 @@
 
 
     @include('includes.Landing.script')
+
+  
+        <script>
+           
+            console.log('hello')
+            $(document).ready(function(){
+                var timer;
+
+                // function refreshDiv()
+                //     {
+                //         timer = setInterval(() => {
+                //             $('#antrian').load('/display-antrian')
+                //         }, 10000); 
+                //     }
+
+                // refreshDiv();
+
+                
+            })
+
+ 
+        </script>
+   
 
 
 </html>
