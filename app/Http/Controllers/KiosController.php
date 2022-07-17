@@ -22,7 +22,9 @@ class KiosController extends Controller
         ->latest()->get();
 
 
-        return view('pages.Landing.Kios.index', compact('antrian_poli'));
+        // return view('pages.Landing.Kios.index', compact('antrian_poli'));
+
+        return view('pages.Landing.Kios.pilih_poli', compact('antrian_poli'));
     }
 
     /**
@@ -111,7 +113,8 @@ class KiosController extends Controller
 
         return response()->json($model);
 
-    }
+    }  
+
 
     public function createPasienTerdaftar(Request $request)
     {
@@ -219,5 +222,14 @@ class KiosController extends Controller
          }
    
          return response()->json($response);
+    }
+
+
+    public function viewDetailPoli($id)
+    {
+        $id_poli = $id;
+
+
+        return view('pages.Landing.Kios.input_detail', compact('id_poli'));
     }
 }

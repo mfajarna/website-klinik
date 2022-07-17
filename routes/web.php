@@ -12,6 +12,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\KiosController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PdfAntrianController;
+use App\Http\Controllers\PendaftaranKiosController;
 use App\Http\Controllers\Pendaftaranpemeriksaan;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\RiwayatBerobatController;
@@ -32,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('auth-login', LandingController::class);
 
+
 Route::get('/display-antrian', [DashboardController::class,'displayAntrian']);
 
 Route::resource('/', IndexController::class);
@@ -45,9 +47,13 @@ Route::get('pdf-antrian-kios', [PdfAntrianController::class, 'kios_pdf'])->name(
 
 // resource
 Route::resource('kios', KiosController::class);
+Route::get('/view-detail/{id}', [KiosController::class, 'viewDetailPoli']);
 Route::get('get-pasien-kios', [KiosController::class, 'getPasien'])->name('kios.getpasienkios');
 Route::post('kios-pasien-baru', [KiosController::class, 'createPasienTerdaftar'])->name('kios.createpasienbaru');
 Route::post('/autocomplete-search', [KiosController::class, 'autocompleteSearch'])->name('autocomplete.pasien');
+Route::post('/pendaftaranbykios', [PendaftaranKiosController::class, 'store']);
+Route::get('/pdf-kios', [PendaftaranKiosController::class, 'exportPdfKios']);
+Route::get('/kios-konfirmasi/{nikes}/{id_poli}', [PendaftaranKiosController::class, 'konfirmasi'])->name('konfirmasikios');
 
 
 Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
