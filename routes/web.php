@@ -45,7 +45,7 @@ Route::resource('pdf-antrian', PdfAntrianController::class);
 Route::get('/download-pdf-antrian/{id}', [PdfAntrianController::class, 'exportPdf']);
 Route::get('pdf-antrian-kios', [PdfAntrianController::class, 'kios_pdf'])->name('pdf-antrian.kios');
 
-// resource
+// resource branch
 Route::resource('kios', KiosController::class);
 Route::get('/view-detail/{id}', [KiosController::class, 'viewDetailPoli']);
 Route::get('get-pasien-kios', [KiosController::class, 'getPasien'])->name('kios.getpasienkios');
