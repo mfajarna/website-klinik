@@ -97,6 +97,8 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         // Route Upload Jadwal Kegiatan
         Route::resource('upload-kegiatan', UploadKegiatanController::class);
         Route::get('delete-kegiatan', [UploadKegiatanController::class, 'deleteKegiatan'])->name('upload-kegiatan.hapus');
+        Route::get('getKegiatan', [UploadKegiatanController::class, 'getKegiatan'])->name('upload-kegiatan.getKegiatan');
+        Route::put('updateKegiatan', [UploadKegiatanController::class, 'updateKegiatan'])->name('upload-kegiatan.updateKegiatan');
 
         // Route Admin Controller
         Route::resource('admin', AdminController::class);
