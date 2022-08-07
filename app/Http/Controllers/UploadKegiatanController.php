@@ -68,10 +68,14 @@ class UploadKegiatanController extends Controller
         $model->nama_kegiatan = $validate['nama_kegiatan'];
         $model->deskripsi_kegiatan = $validate['deskripsi_kegiatan'];
         
-        $path_gambar = $request->file('gambar_kegiatan')->store('assets/file/gambar_kegiatan', 'public');
+    
+        $image = $request->file('gambar_kegiatan');
+        $image_name = $image->getClientOriginalName();
+        $image->storeAs('images', $image_name, 'public_uploads');
+        $image_path = "/images/" . $image_name;
 
         $model->status_kegiatan = "active";
-        $model->gambar_kegiatan = $path_gambar;
+        $model->gambar_kegiatan = $image_path;
         $model->save();
 
 

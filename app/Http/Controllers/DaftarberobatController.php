@@ -34,7 +34,7 @@ class DaftarberobatController extends Controller
         $nikes = $model['nikes'];
 
         $antrian_poli = Antrian_m::with('poli')
-                        ->where('id', $id_antrian_poli)
+                        ->where('id_poli', $id_antrian_poli)
                         ->first();
 
         return view('pages.Dashboard.DaftarBerobat.index', compact('antrian_poli', 'nikes', 'id_antrian_poli'));

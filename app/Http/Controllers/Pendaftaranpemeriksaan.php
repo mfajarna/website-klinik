@@ -189,7 +189,7 @@ class Pendaftaranpemeriksaan extends Controller
 
         $id_poli = $validate['tujuan_poli'];
 
-        $fetchPoli = Antrian_m::with('poli')->where('id', $id_poli)->first();
+        $fetchPoli = Antrian_m::with('poli')->where('id_poli', $id_poli)->first();
 
 
         $antrian_poli = $fetchPoli['no_antrian'];

@@ -76,7 +76,7 @@
                     
                                             <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i>Tujuan Poli</h5>
                                             <select class="form-select" name="tujuan_poli" id="tujuan_poli">
-                                                        <option value="{{ $antrian_poli->id }}">{{ $antrian_poli->poli->nama_poli }}</option>
+                                                        <option value="{{ $antrian_poli->id_poli }}">{{ $antrian_poli->poli->nama_poli }}</option>
                     
                                             </select>
                     

@@ -66,7 +66,7 @@
                         @if ($antrians->status == "active")
                             <div class="col-xl-6">
                                 <div class="d-flex align-items-center">
-                                    <button type="button" id="btn_next_antrian" value="{{ $antrians->id }}" onclick="onNext(this)" class="btn btn-success waves-effect btn-label waves-light"><i class="bx bx-skip-next label-icon"></i>Pilih Poli</button>
+                                    <button type="button" id="btn_next_antrian" value="{{ $antrians->id_poli }}" onclick="onNext(this)" class="btn btn-success waves-effect btn-label waves-light"><i class="bx bx-skip-next label-icon"></i>Pilih Poli</button>
                                 </div>
                             </div>  
                         @endif
