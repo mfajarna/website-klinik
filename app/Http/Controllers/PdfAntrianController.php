@@ -91,7 +91,7 @@ class PdfAntrianController extends Controller
 
     public function exportPdf($id)
     {
-        $model = Antrianpasien::with(['poli','pasien'])->first();
+        $model = Antrianpasien::with(['poli','pasien'])->latest()->first();
 
         $date = date('d m Y', strtotime($model['created_at']));
 

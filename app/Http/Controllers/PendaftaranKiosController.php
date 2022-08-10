@@ -9,6 +9,7 @@ use App\Models\Pasien_m;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use charlieuki\ReceiptPrinter\ReceiptPrinter as ReceiptPrinter;
 
 class PendaftaranKiosController extends Controller
 {
@@ -20,6 +21,7 @@ class PendaftaranKiosController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+    
 
         $keluhan = $data['keluhan'];
         $tujuan_poli = $data['id_poli'];
@@ -59,23 +61,50 @@ class PendaftaranKiosController extends Controller
         $antrianPasien->save();
 
         if($createPasien && $antrian_poli){
-            $model = Antrianpasien::with(['poli','pasien'])->first();
+            $model = Antrianpasien::with(['poli','pasien'])->latest()->first();
 
             $date = date('d m Y', strtotime($model['created_at']));
     
-            $dataPdf = [
-                'nama' => $model['pasien']['nama'],
-                'nikes' => $model['pasien']['nikes'],
-                'keluhan'   => $model['pasien']['keluhan'],
-                'nama_poli'    => $model['poli']['nama_poli'],
-                'waktu' => $date,
-                'no_antrian'   => $model['no_antrian']
-            ];
+            // $dataPdf = [
+            //     'nama' => $model['pasien']['nama'],
+            //     'nikes' => $model['pasien']['nikes'],
+            //     'keluhan'   => $keluhan,
+            //     'nama_poli'    => $model['poli']['nama_poli'],
+            //     'waktu' => $date,
+            //     'no_antrian'   => $model['no_antrian']
+            // ];
+
+            $nama = $model['pasien']['nama'];
+            $nikes = $model['pasien']['nikes'];
+            $keluhan   = $keluhan;
+            $nama_poli    = $model['poli']['nama_poli'];
+            $waktu = $date;
+            $no_antrian   = $model['no_antrian'];
+          
     
-    
-            $pdf = PDF::loadView('pdf.antrianpasien.download-pdf-antrian', ['data' => $dataPdf]);
+            // $pdf = PDF::loadView('pdf.antrianpasien.download-pdf-antrian', ['data' => $dataPdf]);
             
-            return $pdf->download('antrian-pasien.pdf');
+            // return $pdf->download('antrian-pasien.pdf');
+
+            $printer = new ReceiptPrinter;
+            $printer->init(
+                config('receiptprinter.connector_type'),
+                config('receiptprinter.connector_descriptor')
+            );
+
+
+            // Set store info
+            $printer->setStore($nama, $nikes, $keluhan, $nama_poli, $waktu, $no_antrian);
+            $printer->setTransactionID($no_antrian);
+
+                    // Set qr code
+        $printer->setQRcode([
+            'tid' => $no_antrian,
+        ]);
+
+        // Print receipt
+        $printer->printReceipt();
+
         }else{
             return response()->json('500');
         }
