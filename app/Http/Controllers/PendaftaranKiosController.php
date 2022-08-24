@@ -86,6 +86,25 @@ class PendaftaranKiosController extends Controller
             
             // return $pdf->download('antrian-pasien.pdf');
 
+             // Set params
+            $mid = '123123456';
+            $store_name = 'Klinik Citra Sehat';
+            $store_address = 'Jalan Terusan Sadangserang No.18 A, Sekeloa, Kecamatan Coblong, Kabupaten Bandung, Jawa Barat 40134';
+            $store_phone = '(022) 2535710';
+            $store_email = 'klinikcitrasehat@gmail.com';
+            $store_website = 'http://klinikcitrasehatsadang.com/';
+
+            $items =[
+                [
+                    'nama' => $model['pasien']['nama'],
+                    'nikes' => $model['pasien']['nikes'],
+                    'keluhan'   => $keluhan,
+                    'nama_poli'    => $model['poli']['nama_poli'],
+                    'waktu' => $date,
+                    'no_antrian'  => $model['no_antrian'],
+                ]
+            ];
+
             $printer = new ReceiptPrinter;
             $printer->init(
                 config('receiptprinter.connector_type'),
@@ -94,16 +113,29 @@ class PendaftaranKiosController extends Controller
 
 
             // Set store info
-            $printer->setStore($nama, $nikes, $keluhan, $nama_poli, $waktu, $no_antrian);
+            $printer->setStore($mid, $store_name, $store_address, $store_phone, $store_email, $store_website);
+            
+            // Add items
+            foreach ($items as $item) {
+                $printer->addItemMore(
+                    $item['nama'],
+                    $item['nikes'],
+                    $item['keluhan'],
+                    $item['nama_poli'],
+                    $item['waktu'],
+                    $item['no_antrian']
+                );
+            }
+
             $printer->setTransactionID($no_antrian);
 
-                    // Set qr code
-        $printer->setQRcode([
-            'tid' => $no_antrian,
-        ]);
+            // Set qr code
+            $printer->setQRcode([
+                'tid' => $no_antrian,
+            ]);
 
-        // Print receipt
-        $printer->printReceipt();
+            // Print receipt
+            $printer->printReceipt();
 
         }else{
             return response()->json('500');

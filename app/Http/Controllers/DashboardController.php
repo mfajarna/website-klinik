@@ -9,6 +9,7 @@ use App\Models\Pasien_m;
 use App\Models\Poli_m;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -56,10 +57,18 @@ class DashboardController extends Controller
                                             ->where('status', 'Menunggu')
                                             ->count();
 
-        $antrian_poli = Antrian_m::with('poli')
-                                    ->whereIn('id_poli', $id_poli)
-                                    ->where('status', 'active')
-                                    ->get();
+        $antrian_poli = DB::table('tb_antrian')
+                            ->join('tb_poli', 'tb_antrian.id_poli', '=', 'tb_poli.id')
+                            ->join('tb_antrian_pasien', 'tb_antrian.id_poli', '=', 'tb_antrian_pasien.id_poli')
+                            ->where('tb_antrian.status', 'active')
+                            ->whereIn('tb_antrian.id_poli', $id_poli)
+                            ->select('tb_antrian.id',
+                                    DB::raw("SUM(CASE WHEN tb_antrian_pasien.status = 'MENUNGGU' THEN '1' ELSE 0 END) as jumlah_antrian"), 
+                                    'tb_antrian.status', 
+                                    'tb_poli.nama_poli', 
+                                    'tb_antrian.no_antrian')
+                            ->groupBy('tb_antrian.id_poli')
+                            ->get();
 
 
         $now = date('Y-m-d');
@@ -146,8 +155,20 @@ class DashboardController extends Controller
     public function displayAntrian(Request $request)
     {
 
-        $antrian = Antrian_m::with('poli')->where('status', 'active')->latest()->get();
+        $antrian = DB::table('tb_antrian')
+                        ->join('tb_poli', 'tb_antrian.id_poli', '=', 'tb_poli.id')
+                        ->join('tb_antrian_pasien', 'tb_antrian.id_poli', '=', 'tb_antrian_pasien.id_poli')
+                        ->where('tb_antrian.status', 'active')
+                        ->select('tb_antrian.id',
+                                 DB::raw("SUM(CASE WHEN tb_antrian_pasien.status = 'MENUNGGU' THEN '1' ELSE 0 END) as jumlah_antrian"), 
+                                 'tb_antrian.status', 
+                                 'tb_poli.nama_poli', 
+                                 'tb_antrian.no_antrian')
+                        ->groupBy('tb_antrian.id_poli')
+                        ->get();
 
+        
+        
         return view('pages.Landing.notification', compact('antrian'));
     }
 }

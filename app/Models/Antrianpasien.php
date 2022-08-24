@@ -28,4 +28,6 @@ class Antrianpasien extends Model
     {
         return $this->belongsTo(Poli_m::class, 'id_poli');
     }
+
+    
 }

@@ -44,6 +44,7 @@ Route::resource('pdf-antrian', PdfAntrianController::class);
 
 Route::get('/download-pdf-antrian/{id}', [PdfAntrianController::class, 'exportPdf']);
 Route::get('pdf-antrian-kios', [PdfAntrianController::class, 'kios_pdf'])->name('pdf-antrian.kios');
+Route::get('/test-printer', [PdfAntrianController::class, 'test']);
 
 // resource branch
 Route::resource('kios', KiosController::class);
@@ -77,6 +78,7 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         Route::resource('dokter', DokterController::class);
         Route::get('view-jadwal', [DokterController::class, 'lihatJadwalKerja'])->name('dokter.view-jadwal');
         Route::get('pemeriksaan-pasien/{id}/{idantrian}', [DokterController::class, 'pemeriksaanPasien'])->name('dokter.pemeriksaanpasien');
+        Route::get('changeStatusPemeriksaan/{id}', [DokterController::class, 'changeStatusPemeriksaan'])->name('dokter.changepemeriksaan');
         Route::post('pemeriksaan-create', [DokterController::class, 'createPemeriksaan'])->name('dokter.pemeriksaan.create');
         Route::get('pemeriksaan-view', [DokterController::class, 'viewPdf'])->name('dokter.pemeriksaan.view-pdf');
         Route::get('pemeriksaan-download-pdf', [DokterController::class, 'printPdf'])->name('dokter.pemeriksaan.download-pdf');

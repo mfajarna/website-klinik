@@ -264,9 +264,19 @@ class DokterController extends Controller
         $id_pasien = $antrian['id'];
 
 
-    
-
         return view('pages.Dashboard.Dokter.pemeriksaan', compact('pasien', 'keluhan', 'id_pasien', 'idantrian'));
+    }
+
+    public function changeStatusPemeriksaan($id)
+    {
+        $antrian = Antrianpasien::findOrFail($id);
+        $antrian->status = "TIDAK HADIR";
+        $antrian->save();
+
+
+        toast()->success('Berhasil');
+
+        return redirect()->route('menu.dashboard.index');
     }
 
     public function createPemeriksaan(Request $request)
