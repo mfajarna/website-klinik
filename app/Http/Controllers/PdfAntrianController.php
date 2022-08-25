@@ -20,8 +20,13 @@ class PdfAntrianController extends Controller
 
         $data = $request->all();
 
+        // dd($data['data']['his']);
+        $time = $data['data']['his'];
 
-        return view('pdf.antrianpasien.antrian-pdf', compact('data'));
+        $newTime = date('H:i:s', strtotime($time . '+ 5 minutes'));
+        
+
+        return view('pdf.antrianpasien.antrian-pdf', compact('data', 'newTime'));
     }
 
     /**
@@ -95,14 +100,17 @@ class PdfAntrianController extends Controller
         $model = Antrianpasien::with(['poli','pasien'])->latest()->first();
 
         $date = date('d m Y', strtotime($model['created_at']));
+        $time = date('H:i:s', strtotime($model['created_at']));
+
+        $newTime = date('H:i:s', strtotime($time . '+ 5 minutes'));
+
 
         $dataPdf = [
-            'nama' => $model['pasien']['nama'],
-            'nikes' => $model['pasien']['nikes'],
-            'keluhan'   => $model['pasien']['keluhan'],
             'nama_poli'    => $model['poli']['nama_poli'],
             'waktu' => $date,
-            'no_antrian'   => $model['no_antrian']
+            'no_antrian'   => $model['no_antrian'],
+            'time'         => $time,
+            'newTime'      => $newTime
         ];
 
 

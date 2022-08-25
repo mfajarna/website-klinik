@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Antrian_m;
 use App\Models\Antrianpasien;
+use App\Models\Dokterpoli_m;
 use App\Models\Keluhanpasien_m;
 use App\Models\Pasien_m;
+use App\Models\Poli_m;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -96,9 +98,6 @@ class PendaftaranKiosController extends Controller
 
             $items =[
                 [
-                    'nama' => $model['pasien']['nama'],
-                    'nikes' => $model['pasien']['nikes'],
-                    'keluhan'   => $keluhan,
                     'nama_poli'    => $model['poli']['nama_poli'],
                     'waktu' => $date,
                     'no_antrian'  => $model['no_antrian'],
@@ -118,9 +117,6 @@ class PendaftaranKiosController extends Controller
             // Add items
             foreach ($items as $item) {
                 $printer->addItemMore(
-                    $item['nama'],
-                    $item['nikes'],
-                    $item['keluhan'],
                     $item['nama_poli'],
                     $item['waktu'],
                     $item['no_antrian']
@@ -146,8 +142,10 @@ class PendaftaranKiosController extends Controller
     {
 
         $model = Pasien_m::where('nikes', $nikes)->orWhere('nama', $nikes)->first();
+        $poli = Poli_m::where('id', $id_poli)->first();
+        $dokter = Dokterpoli_m::with('dokter')->where('id_poli', $id_poli)->first();
 
        
-        return view('pages.Landing.Kios.konfirmasi', compact('model','id_poli'));
+        return view('pages.Landing.Kios.konfirmasi', compact('model','id_poli', 'poli', 'dokter'));
     }
 }

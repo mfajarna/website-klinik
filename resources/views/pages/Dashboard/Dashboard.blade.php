@@ -132,13 +132,13 @@
                                 </div>
                             </div>
                             <div class="flex-1 ms-3">
-                                <h5 class="font-size-15 mb-1"><a href="#" class="text-dark">{{ $item['pasien']['nama'] }}</a></h5>
-                            <p class="text-muted mb-0">Pasien</p>
+                                <p class="font-size-15 mb-1 h1">{{ $item['no_antrian'] }}</p>
+                            <p class="text-muted mb-0">No Antrian</p>
                             </div>
                         </div>
                         <div class="mt-3 pt-1">
                             <p class="text-muted mb-0"><i class="mdi mdi-format-list-numbered font-size-15 align-middle pe-2 text-primary"></i>
-                                No Antrian: {{ $item['no_antrian'] }}</p>
+                                Nama Pasien: {{ $item['pasien']['nama'] }}</p>
                             <p class="text-muted mb-0 mt-2"><i class="mdi mdi-list-status font-size-15 align-middle pe-2 text-primary"></i>
                                 Status: <span class="badge rounded-pill badge-soft-warning">{{ $item['status']}}</span></p>
                             <p class="text-muted mb-0 mt-2"><i class="mdi mdi-account-clock font-size-15 align-middle pe-2 text-primary"></i>

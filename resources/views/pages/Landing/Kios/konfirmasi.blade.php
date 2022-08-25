@@ -26,12 +26,11 @@
 
         <div class="d-flex justify-content-center pt-4">
             <div class="row">
-
-
-                <h1>Nama Pasien: {{ $model->nama }}</h1>
-                <h1>NIKES: {{ $model->nikes }}</h1>
-
                 <div class="row pt-2">
+                    <h1>Pasien: {{ $model->nama }}</h1>
+                    <h1>NIKES: {{ $model->nikes }}</h1>
+                    <h1>POLI: {{ $poli->nama_poli }}</h1>
+                    <h1>DOKTER: {{ $dokter->dokter->name }}</h1>
                     <div class="col-md-3">
                         <form action="{{ url('/pendaftaranbykios') }}" method="POST">
                             @csrf

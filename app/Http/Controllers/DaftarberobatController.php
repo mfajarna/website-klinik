@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Antrian_m;
+use App\Models\Dokterpoli_m;
+use App\Models\Jadwalkerjadokter_m;
 use App\Models\Pasien_m;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,7 +30,6 @@ class DaftarberobatController extends Controller
     public function daftarBerobat(Request $request)
     {
         $id_antrian_poli = $request->id;
-
         
         $model = Pasien_m::where('id_user', Auth::user()->id)->first();
         $nikes = $model['nikes'];
@@ -37,7 +38,11 @@ class DaftarberobatController extends Controller
                         ->where('id_poli', $id_antrian_poli)
                         ->first();
 
-        return view('pages.Dashboard.DaftarBerobat.index', compact('antrian_poli', 'nikes', 'id_antrian_poli'));
+        $dokter = Dokterpoli_m::with('dokter')->where('id_poli', $id_antrian_poli)->first();
+        $id_dokter = $dokter->dokter->id;
+        $jadwal_dokter = Jadwalkerjadokter_m::where('id_dokter', $id_dokter)->first();
+
+        return view('pages.Dashboard.DaftarBerobat.index', compact('antrian_poli', 'nikes', 'id_antrian_poli', 'dokter', 'jadwal_dokter'));
     }
 
     /**
