@@ -144,7 +144,7 @@ class RiwayatkesehatanController extends Controller
 
         $pdf = PDF::loadView('pdf.riwayatpasien.riwayatpasien-pdf', ['data' => $model, 'pasien'    => $pasien,]);
 
-
+        //
         return $pdf->download('riwayat-pasien.pdf');
 
     }

@@ -27,14 +27,11 @@
 
                     <div class="row mb-3 mt-2">
                         <div class="col-md-6">
-                            <p class="text-muted"><i class="bx bx-unlink font-size-16 align-middle text-primary me-1"></i> Nama Pasien: {{ $item['nama'] }}</p>
-                            <p class="text-muted"><i class="bx bx-unlink font-size-16 align-middle text-primary me-1"></i> NIKES: {{ $item['nikes'] }}</p>
-
-                            <p class="text-muted"><i class="bx bx-unlink font-size-16 align-middle text-primary me-1"></i> Keluhan: {{ $item['keluhan'] }}</p>
                             <p class="text-muted"><i class="bx bx-unlink font-size-16 align-middle text-primary me-1"></i>Tujuan Poli: {{ $item['nama_poli'] }}</p>
                             
                             <p class="text-muted"><i class="bx bx-unlink font-size-16 align-middle text-primary me-1"></i>Jenis Pendaftaran: Pendaftaran Online</p>
-                            <p class="text-muted"><i class="bx bx-unlink font-size-16 align-middle text-primary me-1"></i>Waktu Pendaftaran: {{ $item['waktu'] }}</p>
+                            <p class="text-muted"><i class="bx bx-unlink font-size-16 align-middle text-primary me-1"></i>Waktu Pendaftaran: {{ $item['waktu'] }}-{{ $item['his'] }}</p>
+                            <p class="text-muted"><i class="bx bx-unlink font-size-16 align-middle text-primary me-1"></i>Diharapkan datang pada: {{ $item['waktu'] }}-{{ $newTime }}</p>
                     
                             <h4 class="font-size-16 mb-3" >NO ANTRIAN: {{ $item['no_antrian'] }}</h4>
                         </div>

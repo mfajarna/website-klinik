@@ -12,6 +12,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\KiosController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PdfAntrianController;
+use App\Http\Controllers\PendaftaranKiosController;
 use App\Http\Controllers\Pendaftaranpemeriksaan;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\RiwayatBerobatController;
@@ -32,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('auth-login', LandingController::class);
 
+
 Route::get('/display-antrian', [DashboardController::class,'displayAntrian']);
 
 Route::resource('/', IndexController::class);
@@ -42,12 +44,17 @@ Route::resource('pdf-antrian', PdfAntrianController::class);
 
 Route::get('/download-pdf-antrian/{id}', [PdfAntrianController::class, 'exportPdf']);
 Route::get('pdf-antrian-kios', [PdfAntrianController::class, 'kios_pdf'])->name('pdf-antrian.kios');
+Route::get('/test-printer', [PdfAntrianController::class, 'test']);
 
-// resource
+// resource branch
 Route::resource('kios', KiosController::class);
+Route::get('/view-detail/{id}', [KiosController::class, 'viewDetailPoli']);
 Route::get('get-pasien-kios', [KiosController::class, 'getPasien'])->name('kios.getpasienkios');
 Route::post('kios-pasien-baru', [KiosController::class, 'createPasienTerdaftar'])->name('kios.createpasienbaru');
 Route::post('/autocomplete-search', [KiosController::class, 'autocompleteSearch'])->name('autocomplete.pasien');
+Route::post('/pendaftaranbykios', [PendaftaranKiosController::class, 'store']);
+Route::get('/pdf-kios', [PendaftaranKiosController::class, 'exportPdfKios']);
+Route::get('/kios-konfirmasi/{nikes}/{id_poli}', [PendaftaranKiosController::class, 'konfirmasi'])->name('konfirmasikios');
 
 
 Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
@@ -71,6 +78,7 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         Route::resource('dokter', DokterController::class);
         Route::get('view-jadwal', [DokterController::class, 'lihatJadwalKerja'])->name('dokter.view-jadwal');
         Route::get('pemeriksaan-pasien/{id}/{idantrian}', [DokterController::class, 'pemeriksaanPasien'])->name('dokter.pemeriksaanpasien');
+        Route::get('changeStatusPemeriksaan/{id}', [DokterController::class, 'changeStatusPemeriksaan'])->name('dokter.changepemeriksaan');
         Route::post('pemeriksaan-create', [DokterController::class, 'createPemeriksaan'])->name('dokter.pemeriksaan.create');
         Route::get('pemeriksaan-view', [DokterController::class, 'viewPdf'])->name('dokter.pemeriksaan.view-pdf');
         Route::get('pemeriksaan-download-pdf', [DokterController::class, 'printPdf'])->name('dokter.pemeriksaan.download-pdf');
@@ -91,6 +99,8 @@ Route::group(['prefix' => 'menu', 'as' => 'menu.', 'middleware' => 'auth'],
         // Route Upload Jadwal Kegiatan
         Route::resource('upload-kegiatan', UploadKegiatanController::class);
         Route::get('delete-kegiatan', [UploadKegiatanController::class, 'deleteKegiatan'])->name('upload-kegiatan.hapus');
+        Route::get('getKegiatan', [UploadKegiatanController::class, 'getKegiatan'])->name('upload-kegiatan.getKegiatan');
+        Route::put('updateKegiatan', [UploadKegiatanController::class, 'updateKegiatan'])->name('upload-kegiatan.updateKegiatan');
 
         // Route Admin Controller
         Route::resource('admin', AdminController::class);

@@ -17,6 +17,7 @@
 @section('content')
 
 @include('modal.uploadkegiatan.create')
+@include('modal.uploadkegiatan.update')
 
 <div class="row pt-4">
     <div class="col-xl-12">
@@ -102,9 +103,35 @@
                                         },
                                         
                                 ]
-                        })
-        
+            })
+
+            t.on('click', '#btn_update', function()
+            {
+                $('#ModalViewUpdate').modal('show');
+                $tr = $(this).closest('tr')
+                    if($($tr).hasClass('child'))
+                    {
+                            $tr = $tr.prev('.parent')
+                    }
+                    
+                    var data = t.row($tr).data();
+                    var id = data.id;
+
+                    $.ajax({
+                        method: 'get',
+                        url: '{{ route("menu.upload-kegiatan.getKegiatan") }}',
+                        data: {id:id},
+                        success: function(res){
+                                console.log(res)
+
+                                $('#id').val(res.id);
+                                $('#nama_kegiatan_update').val(res.nama_kegiatan);
+                                $('textarea#deskripsi_kegiatan_update').val(res.deskripsi_kegiatan);
+                        }
                     })
-    </script>
+            })
+        
+        })   
+   </script>
     
 @endpush

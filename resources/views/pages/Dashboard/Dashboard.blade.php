@@ -74,15 +74,15 @@
 
                                     <div class="d-flex align-items-center">
                                         <div class="flex-grow-1">
-                                            <h4 class="text-muted mb-3 lh-1 d-block text-truncate">{{ $antrians->poli->nama_poli }}</h4>
+                                            <h4 class="text-muted mb-3 lh-1 d-block text-truncate">{{ $antrians->nama_poli }}</h4>
                                             <h4 class="mb-3">
-                                                <span class="" data-target="{{ $antrians->no_antrian }}">{{ $antrians->no_antrian }}</span>
+                                                <p class="h1">{{ $antrians->no_antrian }}</p>
                                             </h4>
                                             <div class="text-nowrap">
                                                 <div class="row">
                                                     <div class="col-xl-3 mr-4">
-                                                        <span class="ms-1 text-muted font-size-13">Status Poli </span>
-                                                            <span class="badge bg-soft-success text-success" id="status_poli">Active</span>      
+                                                        <span class="ms-1 text-muted font-size-13">Jumlah Antrian Menunggu </span>
+                                                            <span class="badge bg-soft-success text-success" id="status_poli">{{ $antrians->jumlah_antrian }}</span>      
                                                     </div>
                                                 </div>
         
@@ -132,13 +132,13 @@
                                 </div>
                             </div>
                             <div class="flex-1 ms-3">
-                                <h5 class="font-size-15 mb-1"><a href="#" class="text-dark">{{ $item['pasien']['nama'] }}</a></h5>
-                            <p class="text-muted mb-0">Pasien</p>
+                                <p class="font-size-15 mb-1 h1">{{ $item['no_antrian'] }}</p>
+                            <p class="text-muted mb-0">No Antrian</p>
                             </div>
                         </div>
                         <div class="mt-3 pt-1">
                             <p class="text-muted mb-0"><i class="mdi mdi-format-list-numbered font-size-15 align-middle pe-2 text-primary"></i>
-                                No Antrian: {{ $item['no_antrian'] }}</p>
+                                Nama Pasien: {{ $item['pasien']['nama'] }}</p>
                             <p class="text-muted mb-0 mt-2"><i class="mdi mdi-list-status font-size-15 align-middle pe-2 text-primary"></i>
                                 Status: <span class="badge rounded-pill badge-soft-warning">{{ $item['status']}}</span></p>
                             <p class="text-muted mb-0 mt-2"><i class="mdi mdi-account-clock font-size-15 align-middle pe-2 text-primary"></i>
@@ -147,7 +147,7 @@
                     </div>
 
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-success text-truncate"><i class="uil uil-user me-1"></i>Selesai Periksa</button>
+                        <a href="{{ route('menu.dokter.changepemeriksaan', ['id' => $item['id']]) }}" class="btn btn-outline-danger text-truncate"><i class="uil uil-envelope-alt me-1"></i>Tidak Hadir</a>
                         <a href="{{ route('menu.dokter.pemeriksaanpasien', ['id' => $item['id_pasien'], 'idantrian' => $item['id']]) }}" class="btn btn-outline-primary text-truncate"><i class="uil uil-envelope-alt me-1"></i>Mulai Periksa</a>
                     </div>
                 </div>

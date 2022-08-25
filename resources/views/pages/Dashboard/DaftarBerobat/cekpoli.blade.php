@@ -74,7 +74,7 @@
                         @if ($antrians->status == "active")
                             <div class="col-xl-6">
                                 <div class="d-flex align-items-center">
-                                    <a href="/menu/pasien/berobatpage?id={{ $antrians->id }}" id="btn_next_antrian" class="btn btn-success waves-effect btn-label waves-light"><i class="bx bx-skip-next label-icon"></i>Daftar</a>
+                                    <a href="/menu/pasien/berobatpage?id={{ $antrians->id_poli }}" id="btn_next_antrian" class="btn btn-success waves-effect btn-label waves-light"><i class="bx bx-skip-next label-icon"></i>Daftar</a>
                                 </div>
                             </div>  
                         @endif

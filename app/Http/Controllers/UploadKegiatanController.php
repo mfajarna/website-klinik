@@ -22,7 +22,7 @@ class UploadKegiatanController extends Controller
             return DataTables::of($model)
                         ->addColumn('aksi', function($tipe){
                             $button = '<div class="btn-group" role="group">';
-                            $button .= '<button id="btnGroupVerticalDrop1" type="button" class="btn btn-success waves-effect btn-label waves-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            $button .= '<button type="button" class="btn btn-success waves-effect btn-label waves-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             Edit <i class="mdi mdi-chevron-down"></i>
                                                             <i class="bx bx-edit-alt label-icon"></i>
                                         </button>';
@@ -68,10 +68,14 @@ class UploadKegiatanController extends Controller
         $model->nama_kegiatan = $validate['nama_kegiatan'];
         $model->deskripsi_kegiatan = $validate['deskripsi_kegiatan'];
         
-        $path_gambar = $request->file('gambar_kegiatan')->store('assets/file/gambar_kegiatan', 'public');
+    
+        $image = $request->file('gambar_kegiatan');
+        $image_name = $image->getClientOriginalName();
+        $image->storeAs('images', $image_name, 'public_uploads');
+        $image_path = "/images/" . $image_name;
 
         $model->status_kegiatan = "active";
-        $model->gambar_kegiatan = $path_gambar;
+        $model->gambar_kegiatan = $image_path;
         $model->save();
 
 
@@ -124,6 +128,43 @@ class UploadKegiatanController extends Controller
         //
     }
 
+
+    public function getKegiatan(Request $request)
+    {
+        $id = $request->id;
+        $model = Uploadkegiatan_m::findOrFail($id);
+
+        return response()->json($model);
+    }
+
+    public function updateKegiatan(Request $request)
+    {
+        $id = $request->id;
+        $model = Uploadkegiatan_m::findOrFail($id);
+        
+        $model->nama_kegiatan = $request->nama_kegiatan;
+        $model->deskripsi_kegiatan = $request->deskripsi_kegiatan;
+        $model->status_kegiatan = "active";
+
+        if($request->hasFile('gambar_kegiatan'))
+        {
+            $path_gambar = $request->file('gambar_kegiatan')->store('assets/file/gambar_kegiatan', 'public');
+            $model->gambar_kegiatan = $path_gambar;
+        }
+
+        $model->update();
+
+        if($model)
+        {
+            toast()->success('Berhasil Menyimpan Data');
+            return redirect()->route('menu.upload-kegiatan.index');
+        }else{
+            toast()->error('Gagal Menyimpan Data');
+            return redirect()->route('menu.upload-kegiatan.index');
+        }
+
+    }
+
     public function deleteKegiatan(Request $request)
     {
         $id = $request->id;
@@ -144,9 +185,5 @@ class UploadKegiatanController extends Controller
 
             return redirect()->route('menu.upload-kegiatan.index');
         }
-
-
-
-
     }
 }

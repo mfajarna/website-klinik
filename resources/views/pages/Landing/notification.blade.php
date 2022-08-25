@@ -24,7 +24,7 @@
                     </div>
 
 
-                    <div class="card-body">
+                    <div class="card-body" id="antrian">
                         <div class="row">
                             @foreach ($antrian as $antrians )
             
@@ -41,22 +41,16 @@
                     
                                                     <div class="d-flex align-items-center">
                                                         <div class="flex-grow-1">
-                                                            <h4 class="text-muted mb-3 lh-1 d-block text-truncate">{{ $antrians->poli->nama_poli }}</h4>
+                                                            <h4 class="text-muted mb-3 lh-1 d-block text-truncate">{{ $antrians->nama_poli }}</h4>
                                                             <h4 class="mb-3">
-                                                                <span class="counter-value" data-target="{{ $antrians->no_antrian }}">{{ $antrians->no_antrian }}</span>
+                                                                <p class="h1">{{ $antrians->no_antrian }}</p>
                                                             </h4>
                                                             <div class="text-nowrap">
                                                                 <div class="row">
                                                                     <div class="col-xl-3 mr-4">
-                                                                        <span class="ms-1 text-muted font-size-13">Status Poli </span>
-                        
-                                                                        @if ($antrians->poli->is_active == 1)
-                                                                            <span class="badge bg-soft-success text-success" id="status_poli">Active</span> 
-                                                                        @else
-                                                                        <span class="badge bg-soft-danger text-danger" id="status_poli">Non-Active</span> 
-                                                                        @endif
-                                                                        
-                                                                         
+                                                                        <span class="ms-1 text-muted font-size-13">Jumlah Antrian Menunggu</span>
+                                            
+                                                                        <span class="badge bg-soft-success text-success" id="status_poli">{{ $antrians->jumlah_antrian }}</span>  
                                                                     </div>
                                                                 </div>
                         
@@ -101,6 +95,29 @@
 
 
     @include('includes.Landing.script')
+
+  
+        <script>
+           
+            console.log('hello')
+            $(document).ready(function(){
+                var timer;
+
+                // function refreshDiv()
+                //     {
+                //         timer = setInterval(() => {
+                //             $('#antrian').load('/display-antrian')
+                //         }, 10000); 
+                //     }
+
+                // refreshDiv();
+
+                
+            })
+
+ 
+        </script>
+   
 
 
 </html>

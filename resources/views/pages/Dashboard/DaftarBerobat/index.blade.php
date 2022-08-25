@@ -76,10 +76,23 @@
                     
                                             <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i>Tujuan Poli</h5>
                                             <select class="form-select" name="tujuan_poli" id="tujuan_poli">
-                                                        <option value="{{ $antrian_poli->id }}">{{ $antrian_poli->poli->nama_poli }}</option>
+                                                        <option value="{{ $antrian_poli->id_poli }}">{{ $antrian_poli->poli->nama_poli }}</option>
                     
                                             </select>
+
+                                            <div class="mb-3 mt-4">
+                                                <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Nama Dokter</h5>
+
+
+                                                <input type="text" data-pristine-required-message="Please Enter a username" value="{{ $dokter->dokter->name }}" class="form-control" disabled>
+                                            </div>
+
+                                            <h5 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Jadwal Dokter</h5>
+
                     
+                                            <h6 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Hari Kerja: {{ $jadwal_dokter->hari_kerja }}</h6>
+                                            <h6 class="font-size-14 mb-4"><i class="mdi mdi-arrow-right text-primary me-1"></i> Jam Kerja: {{ $jadwal_dokter->jam_mulai_kerja }} -  {{ $jadwal_dokter->jam_selesai_kerja }}</h6>
+                                        </div>
                                             <p class="card-title-desc">*Hanya poli yang sudah buka yang tersedia</p>
                                         </div>
                                     </div>
@@ -91,9 +104,6 @@
                             </div>
                         </div>
                 </div>
-
-                             
-
         </div>
     </div>
 </div>
