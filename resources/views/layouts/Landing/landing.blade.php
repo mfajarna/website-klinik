@@ -29,19 +29,19 @@
                         <div class="navbar-brand-box">
                             <a href="index.html" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="{{ asset('/assets/images/LogoKlinikCS.jpg')}}" alt="" height="24">
+                                    <img src="{{ url('/public/assets/images/LogoKlinikCS.jpg')}}" alt="" height="24">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="{{ asset('/assets/images/LogoKlinikCS.jpg')}}" alt="" height="24"> <span class="logo-txt">Website Klinik Citra</span>
+                                    <img src="{{ url('/public/assets/images/LogoKlinikCS.jpg')}}" alt="" height="24"> <span class="logo-txt">Website Klinik Citra</span>
                                 </span>
                             </a>
 
                             <a href="index.html" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="{{ asset('/assets/images/LogoKlinikCS.jpg')}}" alt="" height="24">
+                                    <img src="{{ url('/public/assets/images/LogoKlinikCS.jpg')}}" alt="" height="24">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="{{ asset('/assets/images/LogoKlinikCS.jpg')}}" alt="" height="24"> <span class="logo-txt">Website Klinik Citra</span>
+                                    <img src="{{ url('/public/assets/images/LogoKlinikCS.jpg')}}" alt="" height="24"> <span class="logo-txt">Website Klinik Citra</span>
                                 </span>
                             </a>
                         </div>

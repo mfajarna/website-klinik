@@ -5,19 +5,19 @@
             <div class="navbar-brand-box">
                 <a href="{{ route('menu.dashboard.index') }}" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{ asset('/assets/images/LogoKlinikCS.jpg')}}" alt="" height="30">
+                        <img src="{{ url('/public/assets/images/LogoKlinikCS.jpg')}}" alt="" height="30">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('/assets/images/LogoKlinikCS.jpg')}}" alt="" height="24"> <span class="logo-txt">Klinik Citra</span>
+                        <img src="{{ url('/public/assets/images/LogoKlinikCS.jpg')}}" alt="" height="24"> <span class="logo-txt">Klinik Citra</span>
                     </span>
                 </a>
 
                 <a href="{{ route('menu.dashboard.index') }}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ asset('/assets/images/LogoKlinikCS.jpg')}}" alt="" height="30">
+                        <img src="{{ url('/public/assets/images/LogoKlinikCS.jpg')}}" alt="" height="30">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('/assets/images/LogoKlinikCS.jpg')}}" alt="" height="24"> <span class="logo-txt">Klinik Citra</span>
+                        <img src="{{ url('/public/assets/images/LogoKlinikCS.jpg')}}" alt="" height="24"> <span class="logo-txt">Klinik Citra</span>
                     </span>
                 </a>
             </div>
@@ -47,7 +47,7 @@
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="{{ asset('/assets/images/users/avatar-1.jpg')}}"
+                    <img class="rounded-circle header-profile-user" src="{{ url('/public/assets/images/users/avatar-1.jpg')}}"
                         alt="Header Avatar">       
                       
                     @if (Auth::user()->role == "admin")
