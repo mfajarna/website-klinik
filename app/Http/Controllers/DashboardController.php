@@ -158,10 +158,10 @@ class DashboardController extends Controller
 
         $antrian = DB::table('tb_antrian')
                         ->join('tb_poli', 'tb_antrian.id_poli', '=', 'tb_poli.id')
-                        ->join('tb_antrian_pasien', 'tb_antrian.id_poli', '=', 'tb_antrian_pasien.id_poli')
+                        ->leftJoin('tb_antrian_pasien', 'tb_antrian.id_poli', '=', 'tb_antrian_pasien.id_poli')
                         ->where('tb_antrian.status', 'active')
                         ->select('tb_antrian.id',
-                                 DB::raw("SUM(CASE WHEN tb_antrian_pasien.status = 'MENUNGGU' THEN '1' ELSE 0 END) WHERE tb_antrian.status '=' active tb as jumlah_antrian"), 
+                                 DB::raw("SUM(CASE WHEN tb_antrian_pasien.status = 'MENUNGGU' THEN '1' ELSE 0 END) as jumlah_antrian"), 
                                  'tb_antrian.status', 
                                  'tb_poli.nama_poli', 
                                  'tb_antrian.no_antrian')

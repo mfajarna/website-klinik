@@ -143,9 +143,18 @@ class PendaftaranKiosController extends Controller
 
         $model = Pasien_m::where('nikes', $nikes)->orWhere('nama', $nikes)->first();
         $poli = Poli_m::where('id', $id_poli)->first();
-        $dokter = Dokterpoli_m::with('dokter')->where('id_poli', $id_poli)->first();
+        $dokter = Dokterpoli_m::has('dokter')->where('id_poli', $id_poli)->first();
+        $nama_pasien = $model->nama;
+        $nikes = $model->nikes;
+
+        if($dokter)
+        {
+            $model = Dokterpoli_m::with('dokter')->where('id_poli', $id_poli)->first();
+            $dokter = $model->dokter->name;
+  
+        }
 
        
-        return view('pages.Landing.Kios.konfirmasi', compact('model','id_poli', 'poli', 'dokter'));
+        return view('pages.Landing.Kios.konfirmasi', compact('nama_pasien','nikes','model','id_poli', 'poli', 'dokter'));
     }
 }

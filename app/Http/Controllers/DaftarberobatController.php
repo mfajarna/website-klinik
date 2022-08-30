@@ -9,6 +9,7 @@ use App\Models\Pasien_m;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DaftarberobatController extends Controller
 {
@@ -20,7 +21,19 @@ class DaftarberobatController extends Controller
     public function index()
     {
 
-        $antrian = Antrian_m::with('poli')->latest()->get();
+        // $antrian = Antrian_m::with('poli')->where('status', 'active')->latest()->get();
+        $antrian = DB::table('tb_antrian')
+        ->join('tb_poli', 'tb_antrian.id_poli', '=', 'tb_poli.id')
+        ->leftJoin('tb_antrian_pasien', 'tb_antrian.id_poli', '=', 'tb_antrian_pasien.id_poli')
+        ->where('tb_antrian.status', 'active')
+        ->select('tb_antrian.id',
+                'tb_antrian.id_poli',
+                 DB::raw("SUM(CASE WHEN tb_antrian_pasien.status = 'MENUNGGU' THEN '1' ELSE 0 END ) as jumlah_antrian"), 
+                 'tb_antrian.status', 
+                 'tb_poli.nama_poli', 
+                 'tb_antrian.no_antrian')
+        ->groupBy('tb_antrian.id_poli')
+        ->get();
 
         return view('pages.Dashboard.DaftarBerobat.cekpoli', compact('antrian'));
 
@@ -39,10 +52,33 @@ class DaftarberobatController extends Controller
                         ->first();
 
         $dokter = Dokterpoli_m::with('dokter')->where('id_poli', $id_antrian_poli)->first();
-        $id_dokter = $dokter->dokter->id;
-        $jadwal_dokter = Jadwalkerjadokter_m::where('id_dokter', $id_dokter)->first();
+        $nama_dokter = '';
+        $jadwal_dokter = '';
+        $hari_kerja = '';
+        $jam_mulai_kerja = '';
+        $jam_selesai_kerja = '';
+        
+        if($dokter)
+        {
+            $id_dokter = $dokter->dokter->id;
+            $nama_dokter = $dokter->dokter->name;
+            $jadwal_dokter = Jadwalkerjadokter_m::where('id_dokter', $id_dokter)->first();
+            
+            
 
-        return view('pages.Dashboard.DaftarBerobat.index', compact('antrian_poli', 'nikes', 'id_antrian_poli', 'dokter', 'jadwal_dokter'));
+            $hari_kerja = $jadwal_dokter->hari_kerja;
+            $jam_mulai_kerja = $jadwal_dokter->jam_mulai_kerja;
+            $jam_selesai_kerja = $jadwal_dokter->jam_selesai_kerja;
+            
+        }
+
+
+
+      
+
+
+
+        return view('pages.Dashboard.DaftarBerobat.index', compact('hari_kerja','jam_mulai_kerja','jam_selesai_kerja','nama_dokter','antrian_poli', 'nikes', 'id_antrian_poli', 'dokter', 'jadwal_dokter'));
     }
 
     /**

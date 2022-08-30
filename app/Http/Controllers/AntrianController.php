@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Antrian_m;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class AntrianController extends Controller
@@ -18,8 +19,20 @@ class AntrianController extends Controller
 
         $model = Antrian_m::with('poli')->get();
 
-        $antrian = Antrian_m::with('poli')->latest()->get();
-    
+        // $antrian = Antrian_m::with('poli')->latest()->get();
+
+        $antrian = DB::table('tb_antrian')
+        ->join('tb_poli', 'tb_antrian.id_poli', '=', 'tb_poli.id')
+        ->leftJoin('tb_antrian_pasien', 'tb_antrian.id_poli', '=', 'tb_antrian_pasien.id_poli')
+        ->where('tb_antrian.status', 'active')
+        ->select('tb_antrian.id',
+                'tb_antrian.id_poli',
+                 DB::raw("SUM(CASE WHEN tb_antrian_pasien.status = 'MENUNGGU' THEN '1' ELSE 0 END ) as jumlah_antrian"), 
+                 'tb_antrian.status', 
+                 'tb_poli.nama_poli', 
+                 'tb_antrian.no_antrian')
+        ->groupBy('tb_antrian.id_poli')
+        ->get();
 
         if(request()->ajax())
         {
